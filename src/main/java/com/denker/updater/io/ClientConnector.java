@@ -17,21 +17,12 @@ public class ClientConnector
 
     private ClientConnector() {}
 
-    public void connect()
+    public void connect() throws IOException
     {
-        try
-        {
-            FTPConfig config    =   FTPConfig.getInstance();
-            client              =   new FTPClient();
-            client.connect(config.getHost(), config.getPort());
-            client.login(config.getUser(), config.getPassword());
-        }
-
-        catch(IOException e)
-        {
-            System.out.println(e.getMessage());
-            client  =   null;
-        }
+        FTPConfig config    =   FTPConfig.getInstance();
+        client              =   new FTPClient();
+        client.connect(config.getHost(), config.getPort());
+        client.login(config.getUser(), config.getPassword());
     }
 
     public boolean disconnect()

@@ -14,5 +14,6 @@
     <misc-config>
         <workingDir>/</workingDir>
         <updateDir>/</updateDir>
+	<version-path>data/version.xml</version-path>
     </misc-config>
 </updater-config>

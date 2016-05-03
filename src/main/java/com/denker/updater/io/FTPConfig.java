@@ -22,6 +22,7 @@ public class FTPConfig
     private String user;
     private String password;
     private String workDirectory;
+    private String versionPath;
 
     private FTPConfig()
     {
@@ -43,7 +44,8 @@ public class FTPConfig
             this.port           =   Integer.parseInt(configDoc.getElementsByTagName("port").item(0).getTextContent());
             this.user           =   configDoc.getElementsByTagName("username").item(0).getTextContent();
             this.password       =   configDoc.getElementsByTagName("password").item(0).getTextContent();
-            this.workDirectory  =   configDoc.getElementsByTagName("workingDir").item(0).getTextContent();
+            this.workDirectory  =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
+            this.versionPath    =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
 
             System.out.println(toString());
         }
