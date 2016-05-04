@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b6606f56-38b6-4efa-b24e-002c2c98c31c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="auto-updater.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,8 +39,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -617,12 +618,12 @@
       <workItem from="1462362025356" duration="481000" />
       <workItem from="1462103305181" duration="2121000" />
       <workItem from="1462021276258" duration="31000" />
-      <workItem from="1462021310267" duration="100000" />
+      <workItem from="1462021310267" duration="308000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2733000" />
+    <option name="totallyTimeSpent" value="2941000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -721,8 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+        <state relative-caret-position="486">
+          <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
           <folding />
         </state>
       </provider>
