@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6606f56-38b6-4efa-b24e-002c2c98c31c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/config.xml" afterPath="$PROJECT_DIR$/data/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/denker/updater/io/ClientConnector.java" afterPath="$PROJECT_DIR$/src/main/java/com/denker/updater/io/ClientConnector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/denker/updater/io/UpdateLoader.java" afterPath="$PROJECT_DIR$/src/main/java/com/denker/updater/io/UpdateLoader.java" />
     </list>
     <ignored path="auto-updater.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +29,8 @@
       <file leaf-file-name="ClientConnector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/denker/updater/io/ClientConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
+            <state relative-caret-position="342">
+              <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
               <folding>
                 <element signature="e#0#1401#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -69,15 +68,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateLoader.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UpdateLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/denker/updater/io/UpdateLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+            <state relative-caret-position="342">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
-                <element signature="e#0#373#0" expanded="true" />
-                <element signature="e#340#341#0" expanded="true" />
-                <element signature="e#369#370#0" expanded="true" />
+                <element signature="e#0#330#0" expanded="true" />
+                <element signature="e#296#297#0" expanded="true" />
+                <element signature="e#324#325#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppVersion.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/denker/updater/io/AppVersion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="426">
+              <caret line="32" column="65" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#477#478#0" expanded="true" />
+                <element signature="e#507#508#0" expanded="true" />
+                <element signature="e#545#546#0" expanded="true" />
+                <element signature="e#577#578#0" expanded="true" />
+                <element signature="e#627#628#0" expanded="true" />
+                <element signature="e#700#701#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,8 +137,9 @@
         <option value="$PROJECT_DIR$/data/config.tld" />
         <option value="$PROJECT_DIR$/data/config.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/denker/updater/io/FTPConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/denker/updater/io/UpdateLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/denker/updater/io/ClientConnector.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/denker/updater/io/UpdateLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/denker/updater/io/AppVersion.java" />
       </list>
     </option>
   </component>
@@ -857,12 +875,12 @@
       <workItem from="1462103305181" duration="2121000" />
       <workItem from="1462021276258" duration="31000" />
       <workItem from="1462021310267" duration="1271000" />
-      <workItem from="1462589119396" duration="8744000" />
+      <workItem from="1462589119396" duration="12765000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12648000" />
+    <option name="totallyTimeSpent" value="16669000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1031,8 +1049,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/denker/updater/io/ClientConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
+        <state relative-caret-position="342">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
           <folding>
             <element signature="e#0#1401#0" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -1044,12 +1062,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/denker/updater/io/UpdateLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+        <state relative-caret-position="342">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <element signature="e#0#373#0" expanded="true" />
-            <element signature="e#340#341#0" expanded="true" />
-            <element signature="e#369#370#0" expanded="true" />
+            <element signature="e#0#330#0" expanded="true" />
+            <element signature="e#296#297#0" expanded="true" />
+            <element signature="e#324#325#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk1.8.0_74/src.zip!/java/lang/Comparable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="102" column="44" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/denker/updater/io/AppVersion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="32" column="65" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#477#478#0" expanded="true" />
+            <element signature="e#507#508#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+            <element signature="e#627#628#0" expanded="true" />
+            <element signature="e#700#701#0" expanded="true" />
           </folding>
         </state>
       </provider>

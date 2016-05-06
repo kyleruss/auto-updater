@@ -6,18 +6,16 @@
 
 package com.denker.updater.io;
 
-import org.apache.commons.net.ftp.FTPClient;
-
 public class UpdateLoader
 {
-
     public UpdateLoader()
     {
     }
 
-
-    protected FTPClient getClient()
+    public boolean hasUpdateAvailable()
     {
-        return client;
+        return false;
     }
+
+
 }
