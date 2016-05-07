@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<updater-config>
+    <connection-config>
+        <hostname>localhost</hostname>
+        <port>201</port>
+    </connection-config>
+
+    <user-config>
+        <username>ftpguest</username>
+        <password>fgsmg2</password>
+    </user-config>
+
+    <misc-config>
+        <workingDir>/</workingDir>
+    </misc-config>
+</updater-config>

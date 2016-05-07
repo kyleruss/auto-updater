@@ -36,7 +36,6 @@ public class FTPConfig
 
     private void initConfig()
     {
-
         try
         {
             Document configDoc  =   getConfigDocument();
