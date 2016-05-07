@@ -13,24 +13,50 @@ import java.io.*;
 public class ClientConnector
 {
     private static ClientConnector instance;
+    private FTPClient client;
 
     private ClientConnector() {}
 
-    public FTPClient connect()
+    public void connect()
     {
         try
         {
-            FTPClient client    =   new FTPClient();
-            client.connect("localhost", 201);
-            client.login("username", "password");
-            return client;
+            FTPConfig config    =   FTPConfig.getInstance();
+            client              =   new FTPClient();
+            client.connect(config.getHost(), config.getPort());
+            client.login(config.getUser(), config.getPassword());
         }
 
         catch(IOException e)
         {
             System.out.println(e.getMessage());
-            return null;
+            client  =   null;
         }
+    }
+
+    public boolean disconnect()
+    {
+        try
+        {
+            if(client != null)
+            {
+                client.disconnect();
+                return true;
+            }
+
+            else return false;
+        }
+
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public FTPClient getClient()
+    {
+        return client;
     }
 
     public static ClientConnector getInstance()
@@ -38,27 +64,4 @@ public class ClientConnector
         if(instance == null) instance   =   new ClientConnector();
         return instance;
     }
-
-    public static void main(String[] args)
-    {
-        ClientConnector connector   =   getInstance();
-        FTPClient client            =   connector.connect();
-
-        if(client != null)
-        {
-            try
-            {
-                BufferedReader reader   =   new BufferedReader(new InputStreamReader(client.retrieveFileStream("/version.txt")));
-                String line;
-
-                while((line = reader.readLine()) != null)
-                    System.out.println(line);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
 }
