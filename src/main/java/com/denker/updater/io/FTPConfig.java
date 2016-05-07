@@ -30,7 +30,7 @@ public class FTPConfig
 
     private Document getConfigDocument() throws ParserConfigurationException, IOException, SAXException
     {
-        File file   =   new File("config.xml");
+        File file   =   new File("data/config.xml");
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
     }
 
