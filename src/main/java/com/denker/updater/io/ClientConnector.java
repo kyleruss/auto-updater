@@ -7,7 +7,6 @@
 package com.denker.updater.io;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.*;
 
