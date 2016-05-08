@@ -72,7 +72,7 @@ public class UpdateLoader
     {
         if(hasUpdateAvailable())
         {
-
+            
         }
     }
 
