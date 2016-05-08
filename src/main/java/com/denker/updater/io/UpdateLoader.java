@@ -68,6 +68,13 @@ public class UpdateLoader
             return clientVersion.getBuildID() < serverVersion.getBuildID();
     }
 
+    public void update()
+    {
+        if(hasUpdateAvailable())
+        {
+
+        }
+    }
 
     public static void main(String[] args)
     {
