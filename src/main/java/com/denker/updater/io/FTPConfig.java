@@ -23,6 +23,7 @@ public class FTPConfig
     private String password;
     private String workDirectory;
     private String versionPath;
+    private String outputDirectory;
 
     private FTPConfig()
     {
@@ -39,15 +40,14 @@ public class FTPConfig
     {
         try
         {
-            Document configDoc  =   getConfigDocument();
-            this.host           =   configDoc.getElementsByTagName("hostname").item(0).getTextContent();
-            this.port           =   Integer.parseInt(configDoc.getElementsByTagName("port").item(0).getTextContent());
-            this.user           =   configDoc.getElementsByTagName("username").item(0).getTextContent();
-            this.password       =   configDoc.getElementsByTagName("password").item(0).getTextContent();
-            this.workDirectory  =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
-            this.versionPath    =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
-
-            System.out.println(toString());
+            Document configDoc      =   getConfigDocument();
+            this.host               =   configDoc.getElementsByTagName("hostname").item(0).getTextContent();
+            this.port               =   Integer.parseInt(configDoc.getElementsByTagName("port").item(0).getTextContent());
+            this.user               =   configDoc.getElementsByTagName("username").item(0).getTextContent();
+            this.password           =   configDoc.getElementsByTagName("password").item(0).getTextContent();
+            this.workDirectory      =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
+            this.versionPath        =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
+            this.outputDirectory    =   configDoc.getElementsByTagName("output-dir").item(0).getTextContent();
         }
 
         catch(Exception e)
@@ -92,9 +92,20 @@ public class FTPConfig
         return workDirectory == null || workDirectory.equals("/");
     }
 
+    public String getVersionPath()
+    {
+        return versionPath;
+    }
+
+    public String getOutputDirectory()
+    {
+        return outputDirectory;
+    }
+
     @Override
     public String toString()
     {
-        return "[Connection]: " + host + ":" + port + "\n[Account] User: " + user + "; Password: " + password + "\n[Working Directory]: " + workDirectory;
+        return "[Connection]: " + host + ":" + port + "\n[Account] User: " + user + "; Password: " + password +
+                "\n[Working Directory]: " + workDirectory + "\n [Version path]: " + versionPath;
     }
 }

@@ -12,8 +12,9 @@
     </user-config>
 
     <misc-config>
-        <workingDir>/</workingDir>
-        <updateDir>/</updateDir>
+        <working-dir>/</working-dir>
+        <update-dir>/</update-dir>
 	<version-path>data/version.xml</version-path>
+	<output-dir>data/</output-dir>
     </misc-config>
 </updater-config>
