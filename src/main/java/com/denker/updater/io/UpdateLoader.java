@@ -6,6 +6,7 @@
 
 package com.denker.updater.io;
 
+import com.denker.updater.io.UpdateException.ErrorCode;
 import org.apache.commons.net.ftp.FTPClient;
 
 import java.io.*;
@@ -19,28 +20,20 @@ public class UpdateLoader
     private AppVersion clientVersion, serverVersion;
     private FTPClient client;
     
-    public UpdateLoader()
+    public UpdateLoader() throws UpdateException
     {
         initClient();
         initVersions();
     }
     
-    private void initClient()
+    private void initClient() throws UpdateException
     {
-        try
-        {
-            ClientConnector connector = ClientConnector.getInstance();
-            connector.connect();
-            client    =   connector.getClient();
-        }
-        
-        catch(IOException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        ClientConnector connector = ClientConnector.getInstance();
+        connector.connect();
+        client    =   connector.getClient();
     }
 
-    private void initServerVersion()
+    private void initServerVersion() throws UpdateException
     {
         try
         {
@@ -50,7 +43,7 @@ public class UpdateLoader
 
         catch(IOException e)
         {
-            System.out.println(e.getMessage());
+            throw new UpdateException(ErrorCode.SVERSION_CHECK_FAIL);
         }
     }
     
@@ -59,7 +52,7 @@ public class UpdateLoader
         return client != null && client.isConnected();
     }
 
-    protected void initClientVersion()
+    protected void initClientVersion() throws UpdateException
     {
         try
         {
@@ -68,13 +61,13 @@ public class UpdateLoader
             clientVersion   =   AppVersion.getVersionFromFile(new FileInputStream(file));
         }
 
-        catch(FileNotFoundException e)
+        catch(IOException e)
         {
-            System.out.println("[Error] Version file not found");
+            throw new UpdateException(ErrorCode.CVERSION_CHECK_FAIL);
         }
     }
 
-    private void initVersions()
+    private void initVersions() throws UpdateException
     {
         if(isConnected())
         {
@@ -83,7 +76,7 @@ public class UpdateLoader
         }
     }
     
-    private boolean downloadPatchZip(String patchFile)
+    private void downloadPatchZip(String patchFile) throws UpdateException
     {
         try
         {
@@ -95,17 +88,17 @@ public class UpdateLoader
                 client.retrieveFile(patchFile, outputStream);
             }
 
-            return output.exists();
+            if(!output.exists())
+                throw new UpdateException(ErrorCode.PATCH_DL_ERR);
         }
         
         catch(IOException e)
         {
-            e.printStackTrace();
-            return false;
+            throw new UpdateException(ErrorCode.PATCH_DL_ERR);
         }
     }
     
-   private boolean unpackPatch(String patchFile)
+   private void unpackPatch(String patchFile) throws UpdateException
    {
        try
        {
@@ -116,18 +109,15 @@ public class UpdateLoader
            
            ZipFile zFile            =   new ZipFile(absPatchPath);
            zFile.extractAll(OUT_DIR);
-           
-           return true;
        }
        
        catch(Exception e)
        {
-           e.printStackTrace();
-           return false;
+           throw new UpdateException(ErrorCode.UNPACK_PATCH_ERR);
        }
    }
    
-   private boolean removePatchFile(String patchFile)
+   private void removePatchFile(String patchFile) throws UpdateException
    {
         final String PATCH_DIR   =   FTPConfig.getInstance().getPatchDirectory();
         
@@ -135,13 +125,11 @@ public class UpdateLoader
         {
             Path path                =   Paths.get(PATCH_DIR, patchFile);
             Files.delete(path);
-            return true;
         }
         
         catch(IOException e)
         {
-            e.printStackTrace();
-            return false;
+            throw new UpdateException(ErrorCode.REMOVE_PATCH_ERR);
         }
    }
 
