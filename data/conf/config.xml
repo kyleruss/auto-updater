@@ -2,7 +2,7 @@
 
 <updater-config>
     <connection-config>
-        <hostname>localhost</hostname>
+        <hostname>127.0.0.1</hostname>
         <port>201</port>
     </connection-config>
 
@@ -13,8 +13,9 @@
 
     <misc-config>
         <working-dir>/</working-dir>
-        <update-dir>/</update-dir>
-	<version-path>data/version.xml</version-path>
-	<output-dir>data/</output-dir>
+		<patch-dir>data/patches/</patch-dir>
+		<version-path>data/conf/version.xml</version-path>
+		<output-dir>.</output-dir>
+		<keep-patches>false</keep-patches>
     </misc-config>
 </updater-config>

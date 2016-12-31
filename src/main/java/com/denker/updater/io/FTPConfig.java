@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class FTPConfig
 {
+    public static final String CONFIG_DIR       =   "data/conf/";
+    public static final String CONFIG_PATH      =   CONFIG_DIR + "config.xml";
     private static FTPConfig instance;
     private String host;
     private int port;
@@ -24,6 +26,8 @@ public class FTPConfig
     private String workDirectory;
     private String versionPath;
     private String outputDirectory;
+    private String patchDirectory;
+    private boolean keepPatches;
 
     private FTPConfig()
     {
@@ -32,7 +36,7 @@ public class FTPConfig
 
     private Document getConfigDocument() throws ParserConfigurationException, IOException, SAXException
     {
-        File file   =   new File("data/config.xml");
+        File file   =   new File(CONFIG_PATH);
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
     }
 
@@ -48,6 +52,8 @@ public class FTPConfig
             this.workDirectory      =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
             this.versionPath        =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
             this.outputDirectory    =   configDoc.getElementsByTagName("output-dir").item(0).getTextContent();
+            this.patchDirectory     =   configDoc.getElementsByTagName("patch-dir").item(0).getTextContent();
+            this.keepPatches        =   configDoc.getElementsByTagName("keep-patches").item(0).getTextContent().equalsIgnoreCase("true");
         }
 
         catch(Exception e)
@@ -100,6 +106,16 @@ public class FTPConfig
     public String getOutputDirectory()
     {
         return outputDirectory;
+    }
+    
+    public String getPatchDirectory()
+    {
+        return patchDirectory;
+    }
+    
+    public boolean isKeepPatches()
+    {
+        return keepPatches;
     }
 
     @Override

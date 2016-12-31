@@ -1,9 +1,14 @@
+//--------------------------------------
+//  Kyle Russell
+//  Auto-Updater
+//  github.com/denkers/auto-updater
+//--------------------------------------
+
 package com.denker.updater.io;
 
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +39,7 @@ public class AppVersion implements Comparable<AppVersion>
         return new Integer(buildID).compareTo(other.getBuildID());
     }
 
+    @Override
     public String toString()
     {
         return "[Build]: " + buildID + "\n[Build Date]: " + buildDate;
