@@ -11,6 +11,7 @@ public class UpdateException extends Exception
     public static enum ErrorCode
     {
         CLIENT_CONN_FAIL,
+        CLIENT_DISC_FAIL,
         SVERSION_CHECK_FAIL,
         CVERSION_CHECK_FAIL,
         PATCH_DL_ERR,
@@ -31,6 +32,7 @@ public class UpdateException extends Exception
         switch(errorCode)
         {
             case CLIENT_CONN_FAIL: return "Failed to connect to FTP server";
+            case CLIENT_DISC_FAIL: return "Failed to disconnect from FTP server";
             case SVERSION_CHECK_FAIL: return "Failed to check server application version";
             case CVERSION_CHECK_FAIL: return "Failed to check client application version";
             case PATCH_DL_ERR: return "Error occured downloading patch";

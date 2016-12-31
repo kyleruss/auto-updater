@@ -6,6 +6,7 @@
 
 package com.denker.updater.io;
 
+import com.denker.updater.io.UpdateException.ErrorCode;
 import org.apache.commons.net.ftp.FTPClient;
 
 import java.io.*;
@@ -17,31 +18,36 @@ public class ClientConnector
 
     private ClientConnector() {}
 
-    public void connect() throws IOException
+    public void connect() throws UpdateException
     {
         FTPConfig config    =   FTPConfig.getInstance();
         client              =   new FTPClient();
-        client.connect(config.getHost(), config.getPort());
-        client.login(config.getUser(), config.getPassword());
+        
+        try
+        {
+            client.connect(config.getHost(), config.getPort());
+            client.login(config.getUser(), config.getPassword());
+        }
+        
+        catch(IOException e)
+        {
+            throw new UpdateException(ErrorCode.CLIENT_CONN_FAIL);
+        }
     }
 
-    public boolean disconnect()
+    public void disconnect() throws UpdateException
     {
         try
         {
             if(client != null)
-            {
                 client.disconnect();
-                return true;
-            }
 
-            else return false;
+            else throw new UpdateException(ErrorCode.CLIENT_DISC_FAIL);
         }
 
         catch (IOException e)
         {
-            e.printStackTrace();
-            return false;
+            throw new UpdateException(ErrorCode.CLIENT_DISC_FAIL);
         }
     }
 
