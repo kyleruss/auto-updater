@@ -142,20 +142,28 @@ public class UpdateLoader
             return clientVersion.getBuildID() < serverVersion.getBuildID();
     }
 
-    public void update()
+    public void update() throws UpdateException
     {
         if(hasUpdateAvailable())
         {
-//            downloadPatchZip("testzip.zip");
+            downloadPatchZip("testzip.zip");
             unpackPatch("testzip.zip");
-            //removePatchFile("testzip.zip");
+            removePatchFile("testzip.zip");
         }
     }
 
     public static void main(String[] args)
     {
-        UpdateLoader loader =   new UpdateLoader();
-        loader.update();
+        try
+        {
+            UpdateLoader loader =   new UpdateLoader();
+            loader.update();
+        }
+        
+        catch(UpdateException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 }
 
