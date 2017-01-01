@@ -33,7 +33,7 @@ public class UpdateHandler
         client    =   connector.getClient();
     }
 
-    private void initClientVersion() throws UpdateException
+    private void initServerVersion() throws UpdateException
     {
         try
         {
@@ -52,7 +52,7 @@ public class UpdateHandler
         return client != null && client.isConnected();
     }
 
-    protected void initServerVersion() throws UpdateException
+    protected void initClientVersion() throws UpdateException
     {
         try
         {

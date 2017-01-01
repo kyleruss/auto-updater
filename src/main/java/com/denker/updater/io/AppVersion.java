@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class AppVersion implements Comparable<AppVersion>
 {
-    private int buildID;
-    private Date buildDate;
+    private final int buildID;
+    private final Date buildDate;
 
     public AppVersion(int buildID, Date buildDate)
     {
