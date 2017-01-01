@@ -40,10 +40,10 @@ public class UpdateHandler
         {
             client.setFileType(FTPClient.BINARY_FILE_TYPE);
             final String PATCH_DIR          =   FTPConfig.getInstance().getPatchDirectory();
-            File output                     =   new File(PATCH_DIR + "/" + patchFile);
+            File output                     =   new File(PATCH_DIR + "/" + statePath);
             try (FileOutputStream outputStream = new FileOutputStream(output.getAbsolutePath())) 
             {
-                client.retrieveFile(patchFile, outputStream);
+                client.retrieveFile(statePath, outputStream);
             }
 
             if(!output.exists())
@@ -56,12 +56,12 @@ public class UpdateHandler
         }
     }
     
-   private void unpackPatch(String patchFile) throws UpdateException
+   private void unpackPatch() throws UpdateException
    {
        try
        {
            final String PATCH_DIR   =   FTPConfig.getInstance().getPatchDirectory();
-           final String PATCH_PATH  =   PATCH_DIR + patchFile;
+           final String PATCH_PATH  =   PATCH_DIR + statePath;
            final String OUT_DIR     =   FTPConfig.getInstance().getOutputDirectory();
            String absPatchPath      =   new File(PATCH_PATH).getAbsolutePath();
            
@@ -75,13 +75,13 @@ public class UpdateHandler
        }
    }
    
-   private void removePatchFile(String patchFile) throws UpdateException
+   private void removePatchFile() throws UpdateException
    {
         final String PATCH_DIR   =   FTPConfig.getInstance().getPatchDirectory();
         
         try
         {
-            Path path                =   Paths.get(PATCH_DIR, patchFile);
+            Path path                =   Paths.get(PATCH_DIR, statePath);
             Files.delete(path);
         }
         
@@ -91,34 +91,19 @@ public class UpdateHandler
         }
    }
 
-    public boolean hasUpdateAvailable()
+    
+    private void initState(AppVersion stateVersion)
     {
-        if(clientVersion == null || serverVersion == null)
-            return false;
-
-        else
-            return clientVersion.getBuildID() < serverVersion.getBuildID();
+        this.stateVersion   =   stateVersion;
+        statePath           =   stateVersion.getBuildID() + ".zip";
     }
 
     public void processPatch(AppVersion stateVersion) throws UpdateException
     {
-            downloadPatchZip("testzip.zip");
-            unpackPatch("testzip.zip");
-            removePatchFile("testzip.zip");
-    }
-
-    public static void main(String[] args)
-    {
-        try
-        {
-            UpdateHandler loader =   new UpdateHandler();
-            loader.processPatch();
-        }
-        
-        catch(UpdateException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        initState(stateVersion);
+        downloadPatchZip();
+        unpackPatch();
+        removePatchFile();
     }
 }
 
