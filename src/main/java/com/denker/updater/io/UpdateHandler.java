@@ -17,13 +17,13 @@ import net.lingala.zip4j.core.ZipFile;
 
 public class UpdateHandler
 {
-    private AppVersion clientVersion, serverVersion;
+    private AppVersion stateVersion;
+    private String statePath;
     private FTPClient client;
     
     public UpdateHandler() throws UpdateException
     {
         initClient();
-        initVersions();
     }
     
     private void initClient() throws UpdateException
@@ -32,51 +32,9 @@ public class UpdateHandler
         connector.connect();
         client    =   connector.getClient();
     }
-
-    private void initServerVersion() throws UpdateException
-    {
-        try
-        {
-            InputStream is      =   client.retrieveFileStream("version.xml");
-            serverVersion       =   AppVersion.getVersionFromFile(is);
-        }
-
-        catch(IOException e)
-        {
-            throw new UpdateException(ErrorCode.SVERSION_CHECK_FAIL);
-        }
-    }
+   
     
-    public boolean isConnected()
-    {
-        return client != null && client.isConnected();
-    }
-
-    protected void initClientVersion() throws UpdateException
-    {
-        try
-        {
-            String path     =   FTPConfig.getInstance().getVersionPath();
-            File file       =   new File(path);
-            clientVersion   =   AppVersion.getVersionFromFile(new FileInputStream(file));
-        }
-
-        catch(IOException e)
-        {
-            throw new UpdateException(ErrorCode.CVERSION_CHECK_FAIL);
-        }
-    }
-
-    private void initVersions() throws UpdateException
-    {
-        if(isConnected())
-        {
-            initServerVersion();
-            initClientVersion();
-        }
-    }
-    
-    private void downloadPatchZip(String patchFile) throws UpdateException
+    private void downloadPatchZip() throws UpdateException
     {
         try
         {
@@ -142,14 +100,11 @@ public class UpdateHandler
             return clientVersion.getBuildID() < serverVersion.getBuildID();
     }
 
-    public void processPatch() throws UpdateException
+    public void processPatch(AppVersion stateVersion) throws UpdateException
     {
-        if(hasUpdateAvailable())
-        {
             downloadPatchZip("testzip.zip");
             unpackPatch("testzip.zip");
             removePatchFile("testzip.zip");
-        }
     }
 
     public static void main(String[] args)
