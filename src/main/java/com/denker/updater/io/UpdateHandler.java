@@ -15,12 +15,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import net.lingala.zip4j.core.ZipFile;
 
-public class UpdateLoader
+public class UpdateHandler
 {
     private AppVersion clientVersion, serverVersion;
     private FTPClient client;
     
-    public UpdateLoader() throws UpdateException
+    public UpdateHandler() throws UpdateException
     {
         initClient();
         initVersions();
@@ -142,7 +142,7 @@ public class UpdateLoader
             return clientVersion.getBuildID() < serverVersion.getBuildID();
     }
 
-    public void update() throws UpdateException
+    public void processPatch() throws UpdateException
     {
         if(hasUpdateAvailable())
         {
@@ -156,8 +156,8 @@ public class UpdateLoader
     {
         try
         {
-            UpdateLoader loader =   new UpdateLoader();
-            loader.update();
+            UpdateHandler loader =   new UpdateHandler();
+            loader.processPatch();
         }
         
         catch(UpdateException e)
