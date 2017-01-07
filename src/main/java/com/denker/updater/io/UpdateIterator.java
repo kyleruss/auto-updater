@@ -66,4 +66,13 @@ public class UpdateIterator
             initClientVersion();
         }
     }
+    
+    public boolean hasUpdateAvailable()
+    {
+        if(clientVersion == null || serverVersion == null)
+            return false;
+
+        else
+            return clientVersion.getBuildID() < serverVersion.getBuildID();
+    }
 }
