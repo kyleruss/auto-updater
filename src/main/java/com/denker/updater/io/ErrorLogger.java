@@ -9,12 +9,20 @@ package com.denker.updater.io;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ErrorLogger 
 {
+    private static String logFile;
+    static
+    {
+        
+    }
+    
      //Commits a log messsage from logger
     //Log is only written if logging is enabled
     public static void log(String message, String logger_name)
@@ -57,6 +65,21 @@ public class ErrorLogger
                 handler.close();
             }
         }
+    }
+    
+    public Handler getHandler() throws IOException, SecurityException
+    {
+        Handler fh =  new FileHandler
+        (
+                log_file, //Log file name
+                Config.LOG_MAX_SIZE, //Log max file size
+                Config.LOG_FILE_MAX_COUNT, //Max number of logs created after max size
+                true //Allow appending to existing logs
+        );
+        
+        //SimpleFormatter should be used over XMLFormatter
+        fh.setFormatter(log_formatter);
+        return fh;
     }
     
     //Returns the correct formatting including path of log file

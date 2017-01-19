@@ -27,6 +27,8 @@ public class FTPConfig
     private String versionPath;
     private String outputDirectory;
     private String patchDirectory;
+    private String logName;
+    private String logDir;
     private boolean keepPatches;
 
     private FTPConfig()
@@ -54,6 +56,8 @@ public class FTPConfig
             this.outputDirectory    =   configDoc.getElementsByTagName("output-dir").item(0).getTextContent();
             this.patchDirectory     =   configDoc.getElementsByTagName("patch-dir").item(0).getTextContent();
             this.keepPatches        =   configDoc.getElementsByTagName("keep-patches").item(0).getTextContent().equalsIgnoreCase("true");
+            this.logName            =   configDoc.getElementsByTagName("log-name").item(0).getTextContent();
+            this.logDir             =   configDoc.getElementsByTagName("log-dir").item(0).getTextContent();
         }
 
         catch(Exception e)
@@ -116,6 +120,16 @@ public class FTPConfig
     public boolean isKeepPatches()
     {
         return keepPatches;
+    }
+
+    public String getLogName() 
+    {
+        return logName;
+    }
+
+    public String getLogDir() 
+    {
+        return logDir;
     }
 
     @Override

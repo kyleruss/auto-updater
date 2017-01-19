@@ -19,5 +19,7 @@
 		<keep-patches>false</keep-patches>
 		<log-name>ErrorLog</log-name>
 		<log-dir>data/logs/</log-dir>
+		<max-log-size>10000</max-log-size>
+		<max-log-count>1</max-log-count>
     </misc-config>
 </updater-config>
