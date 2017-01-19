@@ -29,6 +29,8 @@ public class FTPConfig
     private String patchDirectory;
     private String logName;
     private String logDir;
+    private int maxLogSize;
+    private int maxLogCount;
     private boolean keepPatches;
 
     private FTPConfig()
@@ -58,6 +60,8 @@ public class FTPConfig
             this.keepPatches        =   configDoc.getElementsByTagName("keep-patches").item(0).getTextContent().equalsIgnoreCase("true");
             this.logName            =   configDoc.getElementsByTagName("log-name").item(0).getTextContent();
             this.logDir             =   configDoc.getElementsByTagName("log-dir").item(0).getTextContent();
+            this.maxLogSize         =   Integer.parseInt(configDoc.getElementsByTagName("max-log-size").item(0).getTextContent());
+            this.maxLogCount        =   Integer.parseInt(configDoc.getElementsByTagName("max-log-count").item(0).getTextContent());
         }
 
         catch(Exception e)
@@ -132,6 +136,16 @@ public class FTPConfig
         return logDir;
     }
 
+    public int getMaxLogSize() 
+    {
+        return maxLogSize;
+    }
+
+    public int getMaxLogCount() 
+    {
+        return maxLogCount;
+    }
+    
     @Override
     public String toString()
     {
