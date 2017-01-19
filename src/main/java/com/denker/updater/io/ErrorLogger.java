@@ -18,12 +18,13 @@ import javax.swing.JOptionPane;
 
 public class ErrorLogger 
 {
-    private static String logFile;
+    private static final String logFile;
     private static final String LOGGER_NAME =   "error_logger";
     
     static
     {
-        
+        final String LOG_NAME   =   FTPConfig.getInstance().getLogName();
+        logFile                 =   formatLogName(LOG_NAME);
     }
     
      //Commits a log messsage from logger
@@ -88,12 +89,13 @@ public class ErrorLogger
     {
         FTPConfig conf                  =   FTPConfig.getInstance();
         final char delimiter            =   '_';
+        final String ext                =   ".log";
         final String folder             =   conf.getLogDir();
         Date time                       =   new Date();
         SimpleDateFormat date_format    =   new SimpleDateFormat("dd-MM-yyyy");
         String date                     =   date_format.format(time);
         
-        String formatted_file   =   folder + file + delimiter + date;
+        String formatted_file   =   folder + file + ext + delimiter + date;
         return formatted_file;
     }   
 }

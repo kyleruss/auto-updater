@@ -17,6 +17,7 @@
 		<version-path>data/conf/version.xml</version-path>
 		<output-dir>.</output-dir>
 		<keep-patches>false</keep-patches>
+		<enable-log>false</enable-log>
 		<log-name>ErrorLog</log-name>
 		<log-dir>data/logs/</log-dir>
 		<max-log-size>10000</max-log-size>
