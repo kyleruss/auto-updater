@@ -105,5 +105,23 @@ public class UpdateHandler
         unpackPatch();
         removePatchFile();
     }
+    
+    public AppVersion getStateVersion()
+    {
+        return stateVersion;
+    }
+    
+    public static void main(String[] args)
+    {
+        try
+        {
+            UpdateHandler updateHandler =   new UpdateHandler();
+        }
+        
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
 

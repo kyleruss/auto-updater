@@ -15,16 +15,17 @@ import java.util.Date;
 
 public class AppVersion implements Comparable<AppVersion>
 {
-    private final int buildID;
+    private final String buildID;
     private final Date buildDate;
+    
 
-    public AppVersion(int buildID, Date buildDate)
+    public AppVersion(String buildID, Date buildDate)
     {
         this.buildID    =   buildID;
         this.buildDate  =   buildDate;
     }
 
-    public int getBuildID()
+    public String getBuildID()
     {
         return buildID;
     }
@@ -34,9 +35,10 @@ public class AppVersion implements Comparable<AppVersion>
         return buildDate;
     }
 
+    @Override
     public int compareTo(AppVersion other)
     {
-        return new Integer(buildID).compareTo(other.getBuildID());
+        return buildID.compareTo(other.getBuildID());
     }
 
     @Override
@@ -50,7 +52,7 @@ public class AppVersion implements Comparable<AppVersion>
         try
         {
             Document versDocument       =   DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
-            int fileBuildID             =   Integer.parseInt(versDocument.getElementsByTagName("build-id").item(0).getTextContent());
+            String fileBuildID          =   versDocument.getElementsByTagName("build-id").item(0).getTextContent();
             String fileBuildDate        =   versDocument.getElementsByTagName("build-date").item(0).getTextContent();
 
             SimpleDateFormat dateFmt    =   new SimpleDateFormat("dd-MM-yyy");
