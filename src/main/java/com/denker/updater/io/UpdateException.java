@@ -20,10 +20,12 @@ public class UpdateException extends Exception
     }
     
     private final ErrorCode errorCode;
+    private final Exception ex;
     
-    public UpdateException(ErrorCode errorCode)
+    public UpdateException(ErrorCode errorCode, Exception ex)
     {
         this.errorCode  =   errorCode;
+        this.ex         =   ex;
     }
     
     @Override
@@ -40,6 +42,13 @@ public class UpdateException extends Exception
             case REMOVE_PATCH_ERR: return "Failed to remove patch package";
             default: return "Error code not found";
         }
+    }
+    
+    @Override
+    public void printStackTrace()
+    {
+        if(ex != null)
+            ex.printStackTrace();
     }
 
     public ErrorCode getErrorCode()

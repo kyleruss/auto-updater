@@ -47,12 +47,12 @@ public class UpdateHandler
             }
 
             if(!output.exists())
-                throw new UpdateException(ErrorCode.PATCH_DL_ERR);
+                throw new UpdateException(ErrorCode.PATCH_DL_ERR, null);
         }
         
         catch(IOException e)
         {
-            throw new UpdateException(ErrorCode.PATCH_DL_ERR);
+            throw new UpdateException(ErrorCode.PATCH_DL_ERR, e);
         }
     }
     
@@ -71,7 +71,7 @@ public class UpdateHandler
        
        catch(Exception e)
        {
-           throw new UpdateException(ErrorCode.UNPACK_PATCH_ERR);
+           throw new UpdateException(ErrorCode.UNPACK_PATCH_ERR, e);
        }
    }
    
@@ -87,7 +87,7 @@ public class UpdateHandler
         
         catch(IOException e)
         {
-            throw new UpdateException(ErrorCode.REMOVE_PATCH_ERR);
+            throw new UpdateException(ErrorCode.REMOVE_PATCH_ERR, e);
         }
    }
 
@@ -116,6 +116,8 @@ public class UpdateHandler
         try
         {
             UpdateHandler updateHandler =   new UpdateHandler();
+            AppVersion testState        =   new AppVersion("examplez");
+            updateHandler.processPatch(testState);
         }
         
         catch(Exception e)

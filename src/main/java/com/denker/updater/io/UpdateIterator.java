@@ -34,7 +34,7 @@ public class UpdateIterator
 
         catch(IOException e)
         {
-            throw new UpdateException(UpdateException.ErrorCode.SVERSION_CHECK_FAIL);
+            throw new UpdateException(UpdateException.ErrorCode.SVERSION_CHECK_FAIL, e);
         }
     }
     
@@ -54,7 +54,7 @@ public class UpdateIterator
 
         catch(IOException e)
         {
-            throw new UpdateException(UpdateException.ErrorCode.CVERSION_CHECK_FAIL);
+            throw new UpdateException(UpdateException.ErrorCode.CVERSION_CHECK_FAIL, e);
         }
     }
 
@@ -73,6 +73,6 @@ public class UpdateIterator
             return false;
 
         else
-            return clientVersion.getBuildID() < serverVersion.getBuildID();
+            return clientVersion.getBuildID().compareTo(serverVersion.getBuildID()) < 0;
     }
 }

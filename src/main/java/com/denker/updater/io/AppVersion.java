@@ -18,7 +18,11 @@ public class AppVersion implements Comparable<AppVersion>
     private final String buildID;
     private final Date buildDate;
     
-
+    public AppVersion(String buildID)
+    {
+        this(buildID, new Date());
+    }
+    
     public AppVersion(String buildID, Date buildDate)
     {
         this.buildID    =   buildID;

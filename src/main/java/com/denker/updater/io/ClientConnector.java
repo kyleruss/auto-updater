@@ -31,7 +31,7 @@ public class ClientConnector
         
         catch(IOException e)
         {
-            throw new UpdateException(ErrorCode.CLIENT_CONN_FAIL);
+            throw new UpdateException(ErrorCode.CLIENT_CONN_FAIL, e);
         }
     }
 
@@ -42,12 +42,12 @@ public class ClientConnector
             if(client != null)
                 client.disconnect();
 
-            else throw new UpdateException(ErrorCode.CLIENT_DISC_FAIL);
+            else throw new UpdateException(ErrorCode.CLIENT_DISC_FAIL, null);
         }
 
         catch (IOException e)
         {
-            throw new UpdateException(ErrorCode.CLIENT_DISC_FAIL);
+            throw new UpdateException(ErrorCode.CLIENT_DISC_FAIL, e);
         }
     }
 
