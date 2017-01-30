@@ -26,4 +26,9 @@
 		<max-log-size>10000</max-log-size>
 		<max-log-count>1</max-log-count>
 	</log-config>
+
+	<interface-config>
+		<enable-gui>true</enable-gui>
+		<splash-path>data/images/splash.png</splash-path>
+	</interface-config>
 </updater-config>
