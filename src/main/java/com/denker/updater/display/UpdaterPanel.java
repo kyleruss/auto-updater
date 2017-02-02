@@ -14,14 +14,18 @@ public class UpdaterPanel extends JPanel
 {
     private static UpdaterPanel instance;
     private final SplashPanel splashPanel;
+    private final StatusPanel statusPanel;
     
     private UpdaterPanel() 
     {
         super(new BorderLayout());
-        splashPanel =   new SplashPanel();
         setBackground(new Color(255, 255, 255, 0));
         
+        splashPanel =   new SplashPanel();
+        statusPanel =   new StatusPanel();
+        
         add(splashPanel, BorderLayout.CENTER);
+        add(statusPanel, BorderLayout.SOUTH);
     }
     
     public SplashPanel getSplashPanel()
