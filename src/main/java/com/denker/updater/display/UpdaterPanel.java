@@ -6,11 +6,22 @@
 
 package com.denker.updater.display;
 
-public class UpdaterPanel 
+import javax.swing.JPanel;
+
+public class UpdaterPanel extends JPanel
 {
     private static UpdaterPanel instance;
+    private final SplashPanel splashPanel;
     
-    private UpdaterPanel() {}
+    private UpdaterPanel() 
+    {
+        splashPanel =   new SplashPanel();
+    }
+    
+    public SplashPanel getSplashPanel()
+    {
+        return splashPanel;
+    }
     
     public static UpdaterPanel getInstance()
     {
