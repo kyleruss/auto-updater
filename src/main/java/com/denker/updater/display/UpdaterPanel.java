@@ -6,6 +6,8 @@
 
 package com.denker.updater.display;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 
 public class UpdaterPanel extends JPanel
@@ -15,7 +17,11 @@ public class UpdaterPanel extends JPanel
     
     private UpdaterPanel() 
     {
+        super(new BorderLayout());
         splashPanel =   new SplashPanel();
+        setBackground(new Color(255, 255, 255, 0));
+        
+        add(splashPanel, BorderLayout.CENTER);
     }
     
     public SplashPanel getSplashPanel()

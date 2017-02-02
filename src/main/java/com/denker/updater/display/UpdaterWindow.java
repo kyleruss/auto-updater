@@ -6,6 +6,7 @@
 
 package com.denker.updater.display;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 
 public class UpdaterWindow 
@@ -26,6 +27,8 @@ public class UpdaterWindow
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(panel);
+        frame.setUndecorated(true);
+        frame.setBackground(new Color(255, 255, 255, 0));
         frame.pack();
         frame.setLocationRelativeTo(null);
     }
