@@ -13,18 +13,24 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class StatusPanel extends JPanel
 {
     private BufferedImage panelImage;
+    private JLabel statusIconLabel;
     
     public StatusPanel()
     {
         setBackground(new Color(255, 255, 255, 0));
         setPreferredSize(new Dimension(449, 75));
         initImageContent();
+        
+        statusIconLabel =   new JLabel(new ImageIcon("data/images/spinner.gif"));
+        add(statusIconLabel);
     }
     
     private void initImageContent()
