@@ -6,7 +6,7 @@
 
 package com.denker.updater.io;
 
-public interface UpdateListener 
+public interface UpdateEventListener 
 {
     public void onVersionCheck();
     
