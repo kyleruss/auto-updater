@@ -75,7 +75,8 @@ public class UpdateIterator
         {
             try
             {
-                FTPFile[] buildFiles    =   client.listFiles();
+                String patchDir         =   FTPConfig.getInstance().getServerPatchDirectory();
+                FTPFile[] buildFiles    =   client.listFiles(patchDir);
                 buildList               =   new ArrayList<>();
                 
                 for(FTPFile buildFile : buildFiles)
