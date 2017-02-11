@@ -26,7 +26,8 @@ public class FTPConfig
     private String workDirectory;
     private String versionPath;
     private String outputDirectory;
-    private String patchDirectory;
+    private String clientPatchDirectory;
+    private String serverPatchDirectory;
     private boolean enableLog;
     private String logName;
     private String logDir;
@@ -49,21 +50,22 @@ public class FTPConfig
     {
         try
         {
-            Document configDoc      =   getConfigDocument();
-            this.host               =   configDoc.getElementsByTagName("hostname").item(0).getTextContent();
-            this.port               =   Integer.parseInt(configDoc.getElementsByTagName("port").item(0).getTextContent());
-            this.user               =   configDoc.getElementsByTagName("username").item(0).getTextContent();
-            this.password           =   configDoc.getElementsByTagName("password").item(0).getTextContent();
-            this.workDirectory      =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
-            this.versionPath        =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
-            this.outputDirectory    =   configDoc.getElementsByTagName("output-dir").item(0).getTextContent();
-            this.patchDirectory     =   configDoc.getElementsByTagName("patch-dir").item(0).getTextContent();
-            this.keepPatches        =   configDoc.getElementsByTagName("keep-patches").item(0).getTextContent().equalsIgnoreCase("true");
-            this.logName            =   configDoc.getElementsByTagName("log-name").item(0).getTextContent();
-            this.logDir             =   configDoc.getElementsByTagName("log-dir").item(0).getTextContent();
-            this.maxLogSize         =   Integer.parseInt(configDoc.getElementsByTagName("max-log-size").item(0).getTextContent());
-            this.maxLogCount        =   Integer.parseInt(configDoc.getElementsByTagName("max-log-count").item(0).getTextContent());
-            this.enableLog          =   configDoc.getElementsByTagName("enable-log").item(0).getTextContent().equalsIgnoreCase("true");
+            Document configDoc          =   getConfigDocument();
+            this.host                   =   configDoc.getElementsByTagName("hostname").item(0).getTextContent();
+            this.port                   =   Integer.parseInt(configDoc.getElementsByTagName("port").item(0).getTextContent());
+            this.user                   =   configDoc.getElementsByTagName("username").item(0).getTextContent();
+            this.password               =   configDoc.getElementsByTagName("password").item(0).getTextContent();
+            this.workDirectory          =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
+            this.versionPath            =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
+            this.outputDirectory        =   configDoc.getElementsByTagName("output-dir").item(0).getTextContent();
+            this.clientPatchDirectory   =   configDoc.getElementsByTagName("client-patch-dir").item(0).getTextContent();
+            this.serverPatchDirectory   =   configDoc.getElementsByTagName("server-patch-dir").item(0).getTextContent();
+            this.keepPatches            =   configDoc.getElementsByTagName("keep-patches").item(0).getTextContent().equalsIgnoreCase("true");
+            this.logName                =   configDoc.getElementsByTagName("log-name").item(0).getTextContent();
+            this.logDir                 =   configDoc.getElementsByTagName("log-dir").item(0).getTextContent();
+            this.maxLogSize             =   Integer.parseInt(configDoc.getElementsByTagName("max-log-size").item(0).getTextContent());
+            this.maxLogCount            =   Integer.parseInt(configDoc.getElementsByTagName("max-log-count").item(0).getTextContent());
+            this.enableLog              =   configDoc.getElementsByTagName("enable-log").item(0).getTextContent().equalsIgnoreCase("true");
         }
 
         catch(Exception e)
@@ -118,9 +120,14 @@ public class FTPConfig
         return outputDirectory;
     }
     
-    public String getPatchDirectory()
+    public String getClientPatchDirectory()
     {
-        return patchDirectory;
+        return clientPatchDirectory;
+    }
+    
+    public String getServerPatchDirectory()
+    {
+        return serverPatchDirectory;
     }
     
     public boolean isKeepPatches()

@@ -13,7 +13,8 @@
 
     <patch-config>
         <working-dir>/</working-dir>
-		<patch-dir>data/patches/</patch-dir>
+		<client-patch-dir>data/patches/</client-patch-dir>
+		<server-patch-dir>patches/</server-patch-dir>
 		<version-path>data/conf/version.xml</version-path>
 		<output-dir>.</output-dir>
 		<keep-patches>false</keep-patches>

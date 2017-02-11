@@ -20,19 +20,12 @@ public class UpdateHandler
     private AppVersion stateVersion;
     private String statePath;
     private FTPClient client;
+    private UpdateEventListener updateEventListener;
     
-    public UpdateHandler() throws UpdateException
+    public UpdateHandler(FTPClient client)
     {
-        initClient();
+        this.client  =   client;
     }
-    
-    private void initClient() throws UpdateException
-    {
-        ClientConnector connector = ClientConnector.getInstance();
-        connector.connect();
-        client    =   connector.getClient();
-    }
-   
     
     private void downloadPatchZip() throws UpdateException
     {
@@ -111,7 +104,27 @@ public class UpdateHandler
         return stateVersion;
     }
     
-    public static void main(String[] args)
+    public void setUpdateEventListener(UpdateEventListener eventListener)
+    {
+        this.updateEventListener    =   eventListener;
+    }
+    
+    public UpdateEventListener getUpdateEventListener()
+    {
+        return updateEventListener;
+    }
+    
+    public FTPClient getClient()
+    {
+        return client;
+    }
+    
+    public void setClient(FTPClient client)
+    {
+        this.client =   client;
+    }
+    
+    /*public static void main(String[] args)
     {
         try
         {
@@ -124,6 +137,6 @@ public class UpdateHandler
         {
             e.printStackTrace();
         }
-    }
+    } */
 }
 
