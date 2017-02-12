@@ -17,14 +17,19 @@ import org.apache.commons.net.ftp.FTPFile;
 
 public class UpdateIterator 
 {
-    private AppVersion clientVersion, serverVersion;
+    private AppVersion clientVersion;
     private FTPClient client;
     private UpdateHandler updateHandler;
     private List<AppVersion> buildList;
+    private int position;
     
     public UpdateIterator() throws UpdateException
     {
         initClient();
+        initClientVersion();
+        
+        updateHandler   =   new UpdateHandler(client);   
+        position        =   0;
     }
     
     private void initClient() throws UpdateException
@@ -40,7 +45,7 @@ public class UpdateIterator
         return updateHandler;
     }
 
-    private void initServerVersion() throws UpdateException
+   /* private void initServerVersion() throws UpdateException
     {
         try
         {
@@ -52,20 +57,23 @@ public class UpdateIterator
         {
             throw new UpdateException(UpdateException.ErrorCode.SVERSION_CHECK_FAIL, e);
         }
-    }
+    } */
     
-    protected void initClientVersion() throws UpdateException
+    private void initClientVersion() throws UpdateException
     {
-        try
+        if(isConnected())
         {
-            String path     =   FTPConfig.getInstance().getVersionPath();
-            File file       =   new File(path);
-            clientVersion   =   AppVersion.getVersionFromFile(new FileInputStream(file));
-        }
+            try
+            {
+                String path     =   FTPConfig.getInstance().getVersionPath();
+                File file       =   new File(path);
+                clientVersion   =   AppVersion.getVersionFromFile(new FileInputStream(file));
+            }
 
-        catch(IOException e)
-        {
-            throw new UpdateException(UpdateException.ErrorCode.CVERSION_CHECK_FAIL, e);
+            catch(IOException e)
+            {
+                throw new UpdateException(UpdateException.ErrorCode.CVERSION_CHECK_FAIL, e);
+            }
         }
     }
     
@@ -78,11 +86,17 @@ public class UpdateIterator
                 String patchDir         =   FTPConfig.getInstance().getServerPatchDirectory();
                 FTPFile[] buildFiles    =   client.listFiles(patchDir);
                 buildList               =   new ArrayList<>();
+                String clientBuild      =   clientVersion.getBuildID();
                 
                 for(FTPFile buildFile : buildFiles)
                 {
-                    buildList.add(new AppVersion(buildFile.getName()));
-                    System.out.println(buildFile.getName());
+                    String currentBuild =   buildFile.getName();
+                    
+                    if(clientBuild.compareToIgnoreCase(currentBuild) < 0)
+                    {
+                        buildList.add(new AppVersion(buildFile.getName()));
+                        System.out.println(buildFile.getName());
+                    }
                 }
             }
             
@@ -93,13 +107,19 @@ public class UpdateIterator
         }
     }
     
-    private void initVersions() throws UpdateException
+    public void nextUpdate() throws UpdateException
     {
-        if(isConnected())
+        if(hasUpdates())
         {
-            initServerVersion();
-            initClientVersion();
+            AppVersion nextUpdate   =   buildList.get(position);
+            updateHandler.processPatch(nextUpdate);
+            position++;
         }
+    }
+    
+    public int getNumUpdates()
+    {
+        return buildList.size();
     }
     
     public boolean isConnected()
@@ -107,13 +127,19 @@ public class UpdateIterator
         return client != null && client.isConnected();
     }
     
-    public boolean hasUpdateAvailable()
+    public boolean hasUpdates()
     {
-        if(clientVersion == null || serverVersion == null)
-            return false;
-
-        else
-            return clientVersion.getBuildID().compareTo(serverVersion.getBuildID()) < 0;
+        return position < getNumUpdates();
+    }
+    
+    public int getPosition()
+    {
+        return position;
+    }
+    
+    public void reset()
+    {
+        position    =   0;
     }
     
     public static void main(String[] args)
