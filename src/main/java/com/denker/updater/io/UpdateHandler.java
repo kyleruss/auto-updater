@@ -31,6 +31,7 @@ public class UpdateHandler
     {
         try
         {
+            updateEventListener.onDownloadPatch(stateVersion);
             client.setFileType(FTPClient.BINARY_FILE_TYPE);
             final String PATCH_DIR          =   FTPConfig.getInstance().getClientPatchDirectory();
             File output                     =   new File(PATCH_DIR + "/" + statePath);
@@ -53,6 +54,7 @@ public class UpdateHandler
    {
        try
        {
+           updateEventListener.onUnpackPatch(stateVersion);
            final String PATCH_DIR   =   FTPConfig.getInstance().getClientPatchDirectory();
            final String PATCH_PATH  =   PATCH_DIR + statePath;
            final String OUT_DIR     =   FTPConfig.getInstance().getOutputDirectory();
@@ -70,14 +72,15 @@ public class UpdateHandler
    
    private void removePatchFile() throws UpdateException
    {
+        updateEventListener.onPatchCleanUp(stateVersion);
         final String PATCH_DIR   =   FTPConfig.getInstance().getClientPatchDirectory();
-        
+
         try
         {
             Path path                =   Paths.get(PATCH_DIR, statePath);
             Files.delete(path);
         }
-        
+
         catch(IOException e)
         {
             throw new UpdateException(ErrorCode.REMOVE_PATCH_ERR, e);

@@ -8,11 +8,11 @@ package com.denker.updater.io;
 
 public interface UpdateEventListener 
 {
-    public void onVersionCheck();
+    public void onVersionCheck(AppVersion state);
     
-    public void onDownloadPatch();
+    public void onDownloadPatch(AppVersion state);
     
-    public void onUnpackPatch();
+    public void onUnpackPatch(AppVersion state);
     
-    public void onPatchCleanUp();
+    public void onPatchCleanUp(AppVersion state);
 }

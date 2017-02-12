@@ -9,7 +9,6 @@ package com.denker.updater.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.net.ftp.FTPClient;
@@ -19,7 +18,7 @@ public class UpdateIterator
 {
     private AppVersion clientVersion;
     private FTPClient client;
-    private UpdateHandler updateHandler;
+    private final UpdateHandler updateHandler;
     private List<AppVersion> buildList;
     private int position;
     
