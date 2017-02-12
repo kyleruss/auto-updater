@@ -34,6 +34,7 @@ public class FTPConfig
     private int maxLogSize;
     private int maxLogCount;
     private boolean keepPatches;
+    private int buildNameType;
 
     private FTPConfig()
     {
@@ -66,6 +67,7 @@ public class FTPConfig
             this.maxLogSize             =   Integer.parseInt(configDoc.getElementsByTagName("max-log-size").item(0).getTextContent());
             this.maxLogCount            =   Integer.parseInt(configDoc.getElementsByTagName("max-log-count").item(0).getTextContent());
             this.enableLog              =   configDoc.getElementsByTagName("enable-log").item(0).getTextContent().equalsIgnoreCase("true");
+            this.buildNameType          =   Integer.parseInt(configDoc.getElementsByTagName("build-name-type").item(0).getTextContent());
         }
 
         catch(Exception e)
@@ -158,6 +160,11 @@ public class FTPConfig
     public boolean isEnableLog() 
     {
         return enableLog;
+    }
+    
+    public int getBuildNameType()
+    {
+        return buildNameType;
     }
     
     @Override

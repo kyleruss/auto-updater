@@ -16,6 +16,7 @@
 		<client-patch-dir>data/patches/</client-patch-dir>
 		<server-patch-dir>patches/</server-patch-dir>
 		<version-path>data/conf/version.xml</version-path>
+		<build-name-type>0</build-name-type>
 		<output-dir>.</output-dir>
 		<keep-patches>false</keep-patches>
 	</patch-config>

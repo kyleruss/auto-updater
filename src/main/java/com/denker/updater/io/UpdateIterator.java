@@ -43,20 +43,6 @@ public class UpdateIterator
     {
         return updateHandler;
     }
-
-   /* private void initServerVersion() throws UpdateException
-    {
-        try
-        {
-            InputStream is      =   client.retrieveFileStream("version.xml");
-            serverVersion       =   AppVersion.getVersionFromFile(is);
-        }
-
-        catch(IOException e)
-        {
-            throw new UpdateException(UpdateException.ErrorCode.SVERSION_CHECK_FAIL, e);
-        }
-    } */
     
     private void initClientVersion() throws UpdateException
     {
@@ -85,13 +71,13 @@ public class UpdateIterator
                 String patchDir         =   FTPConfig.getInstance().getServerPatchDirectory();
                 FTPFile[] buildFiles    =   client.listFiles(patchDir);
                 buildList               =   new ArrayList<>();
-                String clientBuild      =   clientVersion.getBuildID();
+                Comparable clientBuild  =   clientVersion.getBuildID();
                 
                 for(FTPFile buildFile : buildFiles)
                 {
                     String currentBuild =   buildFile.getName();
                     
-                    if(clientBuild.compareToIgnoreCase(currentBuild) < 0)
+                    if(clientBuild.compareTo(currentBuild) < 0)
                     {
                         buildList.add(new AppVersion(buildFile.getName()));
                         System.out.println(buildFile.getName());
