@@ -25,7 +25,6 @@ public class UpdateIterator
     public UpdateIterator() throws UpdateException
     {
         initClient();
-        initClientVersion();
         
         updateHandler   =   new UpdateHandler(client);   
         position        =   0;
@@ -37,6 +36,13 @@ public class UpdateIterator
         connector.connect();
         client    =   connector.getClient();
         
+    }
+    
+    public boolean checkForUpdates() throws UpdateException
+    {
+        initClientVersion();
+        initBuildList();
+        return hasUpdates();
     }
     
     public UpdateHandler getUpdateHandler()
@@ -62,7 +68,7 @@ public class UpdateIterator
         }
     }
     
-    public void getBuildList() throws UpdateException
+    public void initBuildList() throws UpdateException
     {
         if(client != null)
         {
@@ -71,15 +77,16 @@ public class UpdateIterator
                 String patchDir         =   FTPConfig.getInstance().getServerPatchDirectory();
                 FTPFile[] buildFiles    =   client.listFiles(patchDir);
                 buildList               =   new ArrayList<>();
-                Comparable clientBuild  =   clientVersion.getBuildID();
                 
                 for(FTPFile buildFile : buildFiles)
                 {
-                    String currentBuild =   buildFile.getName();
+                    String fileName             =   buildFile.getName();
+                    fileName                    =   fileName.substring(0, fileName.indexOf("."));
+                    AppVersion nextVersion      =   new AppVersion(fileName);  
                     
-                    if(clientBuild.compareTo(currentBuild) < 0)
+                    if(clientVersion.compareTo(nextVersion) < 0)
                     {
-                        buildList.add(new AppVersion(buildFile.getName()));
+                        buildList.add(nextVersion);
                         System.out.println(buildFile.getName());
                     }
                 }
@@ -132,7 +139,7 @@ public class UpdateIterator
         try
         {
             UpdateIterator iterator =   new UpdateIterator();
-            iterator.getBuildList();
+            iterator.initBuildList();
         }
         
         catch(Exception e)

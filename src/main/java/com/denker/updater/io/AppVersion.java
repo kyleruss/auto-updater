@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class AppVersion implements Comparable<AppVersion>
 {
-    private final Comparable buildID;
+    private final String buildID;
     private final Date buildDate;
     
     public AppVersion(String buildID)
@@ -29,7 +29,7 @@ public class AppVersion implements Comparable<AppVersion>
         this.buildDate  =   buildDate;
     }
 
-    public Comparable getBuildID()
+    public String getBuildID()
     {
         return buildID;
     }
@@ -42,6 +42,15 @@ public class AppVersion implements Comparable<AppVersion>
     @Override
     public int compareTo(AppVersion other)
     {
+        int buildNameType   =   FTPConfig.getInstance().getBuildNameType();
+        
+        if(buildNameType == 0)
+        {
+            int current     =   Integer.parseInt(buildID);
+            int otherID     =   Integer.parseInt(other.getBuildID());
+            return Integer.compare(current, otherID);
+        }
+        
         return buildID.compareTo(other.getBuildID());
     }
 
