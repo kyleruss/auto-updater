@@ -26,9 +26,15 @@ import javax.swing.JPanel;
 
 public class StatusPanel extends JPanel
 {
+    public final int SERVICING_STATUS   =   0;
+    public final int INFO_STATUS        =   1;
+    public final int SUCCESS_STATUS     =   2;
+    public final int ERROR_STATUS       =   3;
+    
     private BufferedImage panelImage;
     private final JLabel statusIconLabel;
     private UpdateIterator updater;
+    private int currentStatusType;
     
     public StatusPanel()
     {
@@ -36,8 +42,9 @@ public class StatusPanel extends JPanel
         setPreferredSize(new Dimension(449, 75));
         initImageContent();
         
-        statusIconLabel =   new JLabel();
-        statusIconLabel.setIcon(new ImageIcon("data/images/spinner.gif"));
+        currentStatusType   =   -1;   
+        statusIconLabel     =   new JLabel();
+        statusIconLabel.setIcon(new ImageIcon("spinner.gif"));
         statusIconLabel.setForeground(Color.WHITE);
         statusIconLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
         setStatus("Checking for updates");
@@ -60,6 +67,7 @@ public class StatusPanel extends JPanel
             {
                 int numUpdates  =   updater.getNumUpdates();
                 setStatus(numUpdates + " updates found");
+                getNextUpdate();
             }
             
             else setStatus("No updates found");
@@ -67,19 +75,67 @@ public class StatusPanel extends JPanel
         
         catch(UpdateException e)
         {
-            JOptionPane.showMessageDialog(null, "[Error] " + e.getMessage());
+            setStatus(e.getMessage());
         }
     }
     
-    public void setStatus(String status)
+    public void getNextUpdate()
+    {
+        try
+        {
+            if(updater != null)
+                updater.nextUpdate();
+        }
+        
+        catch(UpdateException e)
+        {
+            setStatus(e.getMessage());
+        }
+    }
+    
+    public void setStatus(String status, int statusType)
     {
         status  =   status.toUpperCase();
         statusIconLabel.setText(status);
+        
+        if(currentStatusType != statusType)
+        {
+            final String IMG_FOLDER =   "data/images/";
+            
+            switch(statusType)
+            {
+                case SERVICING_STATUS:
+                    statusIconLabel.setIcon(new ImageIcon(IMG_FOLDER + "spinner.gif"));
+                    break;
+                    
+                case INFO_STATUS:
+                    statusIconLabel.setIcon(new ImageIcon(IMG_FOLDER + "notifications_small_icon.png"));
+                    break;
+                    
+                case SUCCESS_STATUS:
+                    statusIconLabel.setIcon(new ImageIcon(IMG_FOLDER + "successicon.png"));
+                    break;
+                    
+                case ERROR_STATUS:
+                    statusIconLabel.setIcon(new ImageIcon(IMG_FOLDER + "failicon.png"));
+                    break;
+            }
+            
+            currentStatusType = statusType;
+        }
     }
     
     public UpdateIterator getUpdater()
     {
         return updater;
+    }
+    
+    public String getProgressString()
+    {
+        int iteration   =   updater.getPosition() + 1;
+        int total       =   updater.getNumUpdates();
+        
+        return "[" + iteration + "/" + total + "] ";
     }
     
     private void initImageContent()
@@ -108,20 +164,28 @@ public class StatusPanel extends JPanel
         @Override
         public void onDownloadPatch(AppVersion state)
         {
-            setStatus("Downloading patch");
+            setStatus(getProgressString() + "Downloading patch");
         }
 
         @Override
         public void onUnpackPatch(AppVersion state) 
         {
-            setStatus("Unpacking patch");
+            setStatus(getProgressString() + "Unpacking patch");
         }
 
         @Override
         public void onPatchCleanUp(AppVersion state) 
         {
-            setStatus("Cleaning up patch contents");
+            setStatus(getProgressString() + "Cleaning up patch contents");
         }
-        
+
+        @Override
+        public void onUpdateComplete(AppVersion state) 
+        {
+            if(updater.hasUpdates())
+                getNextUpdate();
+            else
+                setStatus("Updating complete");
+        }
     }
 }

@@ -13,4 +13,6 @@ public interface UpdateEventListener
     public void onUnpackPatch(AppVersion state);
     
     public void onPatchCleanUp(AppVersion state);
+    
+    public void onUpdateComplete(AppVersion state);
 }
