@@ -6,12 +6,22 @@
 
 package com.denker.updater.io;
 
+import java.io.File;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Element;
 
 public class AppVersion implements Comparable<AppVersion>
 {
@@ -76,8 +86,41 @@ public class AppVersion implements Comparable<AppVersion>
 
         catch(Exception e)
         {
-            System.out.println(e.getMessage());
             return null;
+        }
+    }
+    
+    public void saveVersionToClient() throws UpdateException
+    {
+        try
+        {
+            DocumentBuilderFactory docFac   =   DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder      =   docFac.newDocumentBuilder();
+            
+            Document doc                    =   docBuilder.newDocument();
+            Element rootElement             =   doc.createElement("app-version");
+            doc.appendChild(rootElement);
+            
+            Element buildIDElement          =   doc.createElement("build-id");
+            buildIDElement.appendChild(doc.createTextNode(buildID));
+            rootElement.appendChild(buildIDElement);
+            
+            Element buildDateElement        =   doc.createElement("build-date");
+            buildDateElement.appendChild(doc.createTextNode(buildDate.toString()));
+            rootElement.appendChild(buildDateElement);
+            
+            TransformerFactory tFactory     =   TransformerFactory.newInstance();
+            Transformer transformer         =   tFactory.newTransformer();
+            DOMSource src                   =   new DOMSource(doc);
+            String versionPath              =   FTPConfig.getInstance().getVersionPath();
+            StreamResult res                =   new StreamResult(new File(versionPath));
+            
+            transformer.transform(src, res);
+        }
+        
+        catch(ParserConfigurationException | DOMException | TransformerException e)
+        {
+            throw new UpdateException(UpdateException.ErrorCode.REMOVE_PATCH_ERR, e);
         }
     }
 }

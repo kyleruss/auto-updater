@@ -103,6 +103,7 @@ public class UpdateHandler
         downloadPatchZip();
         unpackPatch();
         removePatchFile();
+        stateVersion.saveVersionToClient();
         updateEventListener.onUpdateComplete(stateVersion);
     }
     
