@@ -194,5 +194,12 @@ public class StatusPanel extends JPanel
                 setStatus(message, SUCCESS_STATUS);
             }
         }
+
+        @Override
+        public void onVersionUpdate(AppVersion state) 
+        {
+            String message  =   "Updating client version";
+            setStatus(getProgressString() + message, SERVICING_STATUS);
+        }
     }
 }
