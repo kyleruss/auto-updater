@@ -1,3 +1,4 @@
 target/
 data/patches/
 data/logs/
+*.txt
