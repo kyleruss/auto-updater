@@ -85,10 +85,7 @@ public class UpdateIterator
                     AppVersion nextVersion      =   new AppVersion(fileName);  
                     
                     if(clientVersion.compareTo(nextVersion) < 0)
-                    {
                         buildList.add(nextVersion);
-                        System.out.println(buildFile.getName());
-                    }
                 }
             }
             
@@ -104,8 +101,8 @@ public class UpdateIterator
         if(hasUpdates())
         {
             AppVersion nextUpdate   =   buildList.get(position);
-            updateHandler.processPatch(nextUpdate);
             position++;
+            updateHandler.processPatch(nextUpdate);
         }
     }
     

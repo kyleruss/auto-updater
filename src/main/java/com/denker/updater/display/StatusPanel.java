@@ -47,7 +47,7 @@ public class StatusPanel extends JPanel
         statusIconLabel.setIcon(new ImageIcon("spinner.gif"));
         statusIconLabel.setForeground(Color.WHITE);
         statusIconLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
-        setStatus("Checking for updates");
+        setStatus("Checking for updates", SERVICING_STATUS);
         
         add(Box.createRigidArea(new Dimension(449, 5)));
         add(statusIconLabel);
@@ -59,23 +59,23 @@ public class StatusPanel extends JPanel
         try
         {
             updater             =   new UpdateIterator();
-            setStatus("Checking for updates");
+            setStatus("Checking for updates", SERVICING_STATUS);
             boolean hasUpdates  =   updater.checkForUpdates();
             updater.getUpdateHandler().setUpdateEventListener(new UpdateListener());
             
             if(hasUpdates)
             {
                 int numUpdates  =   updater.getNumUpdates();
-                setStatus(numUpdates + " updates found");
+                setStatus(numUpdates + " updates found", INFO_STATUS);
                 getNextUpdate();
             }
             
-            else setStatus("No updates found");
+            else setStatus("No updates found", INFO_STATUS);
         }
         
         catch(UpdateException e)
         {
-            setStatus(e.getMessage());
+            setStatus(e.getMessage(), ERROR_STATUS);
         }
     }
     
@@ -89,7 +89,7 @@ public class StatusPanel extends JPanel
         
         catch(UpdateException e)
         {
-            setStatus(e.getMessage());
+            setStatus(e.getMessage(), ERROR_STATUS);
         }
     }
     
@@ -164,19 +164,22 @@ public class StatusPanel extends JPanel
         @Override
         public void onDownloadPatch(AppVersion state)
         {
-            setStatus(getProgressString() + "Downloading patch");
+            String message  =   "Downloading patch";
+            setStatus(getProgressString() + message, SERVICING_STATUS);
         }
 
         @Override
         public void onUnpackPatch(AppVersion state) 
         {
-            setStatus(getProgressString() + "Unpacking patch");
+            String message  =    "Unpacking patch";
+            setStatus(getProgressString() + message, SERVICING_STATUS);
         }
 
         @Override
         public void onPatchCleanUp(AppVersion state) 
         {
-            setStatus(getProgressString() + "Cleaning up patch contents");
+            String message  =   "Cleaning up patch contents";
+            setStatus(getProgressString() + message, SERVICING_STATUS);
         }
 
         @Override
@@ -185,7 +188,10 @@ public class StatusPanel extends JPanel
             if(updater.hasUpdates())
                 getNextUpdate();
             else
-                setStatus("Updating complete");
+            {
+                String message  =   "Updating complete";
+                setStatus(message, SUCCESS_STATUS);
+            }
         }
     }
 }

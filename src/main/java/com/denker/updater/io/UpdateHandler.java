@@ -34,10 +34,12 @@ public class UpdateHandler
             updateEventListener.onDownloadPatch(stateVersion);
             client.setFileType(FTPClient.BINARY_FILE_TYPE);
             final String PATCH_DIR          =   FTPConfig.getInstance().getClientPatchDirectory();
+            final String SERVER_DIR         =   FTPConfig.getInstance().getServerPatchDirectory();
             File output                     =   new File(PATCH_DIR + "/" + statePath);
+            
             try (FileOutputStream outputStream = new FileOutputStream(output.getAbsolutePath())) 
             {
-                client.retrieveFile(statePath, outputStream);
+                client.retrieveFile(SERVER_DIR + statePath, outputStream);
             }
 
             if(!output.exists())
@@ -66,6 +68,7 @@ public class UpdateHandler
        
        catch(Exception e)
        {
+           e.printStackTrace();
            throw new UpdateException(ErrorCode.UNPACK_PATCH_ERR, e);
        }
    }
@@ -100,6 +103,7 @@ public class UpdateHandler
         downloadPatchZip();
         unpackPatch();
         removePatchFile();
+        updateEventListener.onUpdateComplete(stateVersion);
     }
     
     public AppVersion getStateVersion()
@@ -126,20 +130,5 @@ public class UpdateHandler
     {
         this.client =   client;
     }
-    
-    /*public static void main(String[] args)
-    {
-        try
-        {
-            UpdateHandler updateHandler =   new UpdateHandler();
-            AppVersion testState        =   new AppVersion("examplez");
-            updateHandler.processPatch(testState);
-        }
-        
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    } */
 }
 
