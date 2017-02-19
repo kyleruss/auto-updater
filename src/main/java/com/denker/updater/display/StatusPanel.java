@@ -52,7 +52,7 @@ public class StatusPanel extends JPanel
         add(Box.createRigidArea(new Dimension(449, 5)));
         add(statusIconLabel);
         setStatus("Preparing service", SERVICING_STATUS);
-        //initUpdater();
+        initUpdater();
     }
     
     private void initUpdater()

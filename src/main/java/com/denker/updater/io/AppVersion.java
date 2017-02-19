@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -105,16 +106,19 @@ public class AppVersion implements Comparable<AppVersion>
             buildIDElement.appendChild(doc.createTextNode(buildID));
             rootElement.appendChild(buildIDElement);
             
+            SimpleDateFormat dateFmt        =   new SimpleDateFormat("dd-MM-yyy");
+            String formattedDate            =   dateFmt.format(buildDate);
             Element buildDateElement        =   doc.createElement("build-date");
-            buildDateElement.appendChild(doc.createTextNode(buildDate.toString()));
+            buildDateElement.appendChild(doc.createTextNode(formattedDate));
             rootElement.appendChild(buildDateElement);
             
             TransformerFactory tFactory     =   TransformerFactory.newInstance();
             Transformer transformer         =   tFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            
             DOMSource src                   =   new DOMSource(doc);
             String versionPath              =   FTPConfig.getInstance().getVersionPath();
             StreamResult res                =   new StreamResult(new File(versionPath));
-            
             transformer.transform(src, res);
         }
         
