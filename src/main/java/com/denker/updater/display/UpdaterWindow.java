@@ -36,7 +36,10 @@ public class UpdaterWindow
     public void display()
     {
         if(frame != null)
+        {
             frame.setVisible(true);
+            panel.getStatusPanel().startUpdater();
+        }
     }
     
     public static UpdaterWindow getInstance()

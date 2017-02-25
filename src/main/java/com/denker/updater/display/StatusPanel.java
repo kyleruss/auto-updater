@@ -7,6 +7,7 @@
 package com.denker.updater.display;
 
 import com.denker.updater.io.AppVersion;
+import com.denker.updater.io.FTPConfig;
 import com.denker.updater.io.UpdateEventListener;
 import com.denker.updater.io.UpdateException;
 import com.denker.updater.io.UpdateIterator;
@@ -52,10 +53,9 @@ public class StatusPanel extends JPanel
         add(Box.createRigidArea(new Dimension(449, 5)));
         add(statusIconLabel);
         setStatus("Preparing service", SERVICING_STATUS);
-        initUpdater();
     }
     
-    private void initUpdater()
+    protected void startUpdater()
     {
         try
         {
@@ -190,8 +190,17 @@ public class StatusPanel extends JPanel
                 getNextUpdate();
             else
             {
-                String message  =   "Updating complete";
+                String message      =   "Updating complete";
                 setStatus(message, SUCCESS_STATUS);
+                
+                FTPConfig conf      =   FTPConfig.getInstance();
+                boolean exitLaunch  =   conf.isEnableExitLaunch();
+                
+                if(exitLaunch)
+                {
+                    String launchMessage    =   "Launching application";
+                    setStatus(launchMessage, SERVICING_STATUS);
+                }
             }
         }
 

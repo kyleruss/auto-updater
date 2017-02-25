@@ -33,6 +33,11 @@ public class UpdaterPanel extends JPanel
         return splashPanel;
     }
     
+    public StatusPanel getStatusPanel()
+    {
+        return statusPanel;
+    }
+    
     public static UpdaterPanel getInstance()
     {
         if(instance == null) instance = new UpdaterPanel();
