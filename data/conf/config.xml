@@ -3,13 +3,10 @@
 <updater-config>
     <connection-config>
         <hostname>127.0.0.1</hostname>
-        <port>201</port>
-    </connection-config>
-
-    <user-config>
-        <username>ftpguest</username>
+		<port>201</port>
+		<username>ftpguest</username>
         <password>fgsmg2</password>
-    </user-config>
+    </connection-config>
 
     <patch-config>
         <working-dir>/</working-dir>
@@ -33,4 +30,9 @@
 		<enable-gui>true</enable-gui>
 		<splash-path>data/images/splash.png</splash-path>
 	</interface-config>
+
+	<behaviour-config>
+		<enable-exit-launch>true</enable-exit-launch>
+		<exit-launch-path>example.exe</exit-launch-path>
+	</behaviour-config>
 </updater-config>

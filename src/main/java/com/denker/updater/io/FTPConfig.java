@@ -35,6 +35,8 @@ public class FTPConfig
     private int maxLogCount;
     private boolean keepPatches;
     private int buildNameType;
+    private boolean enableExitLaunch;
+    private String exitLaunchPath;
 
     private FTPConfig()
     {
@@ -68,6 +70,8 @@ public class FTPConfig
             this.maxLogCount            =   Integer.parseInt(configDoc.getElementsByTagName("max-log-count").item(0).getTextContent());
             this.enableLog              =   configDoc.getElementsByTagName("enable-log").item(0).getTextContent().equalsIgnoreCase("true");
             this.buildNameType          =   Integer.parseInt(configDoc.getElementsByTagName("build-name-type").item(0).getTextContent());
+            this.enableExitLaunch       =   configDoc.getElementsByTagName("enable-exit-launch").item(0).getTextContent().equalsIgnoreCase("true");
+            exitLaunchPath              =   configDoc.getElementsByTagName("exit-launch-path").item(0).getTextContent();
         }
 
         catch(Exception e)
@@ -166,11 +170,14 @@ public class FTPConfig
     {
         return buildNameType;
     }
-    
-    @Override
-    public String toString()
+
+    public boolean isEnableExitLaunch() 
     {
-        return "[Connection]: " + host + ":" + port + "\n[Account] User: " + user + "; Password: " + password +
-                "\n[Working Directory]: " + workDirectory + "\n [Version path]: " + versionPath;
+        return enableExitLaunch;
+    }
+
+    public String getExitLaunchPath()
+    {
+        return exitLaunchPath;
     }
 }
