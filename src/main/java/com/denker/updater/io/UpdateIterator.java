@@ -45,6 +45,7 @@ public class UpdateIterator
         return hasUpdates();
     }
     
+    
     public UpdateHandler getUpdateHandler()
     {
         return updateHandler;

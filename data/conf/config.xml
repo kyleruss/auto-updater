@@ -33,6 +33,7 @@
 
 	<behaviour-config>
 		<enable-exit-launch>true</enable-exit-launch>
+		<status-arg-name>s</status-arg-name>
 		<exit-launch-path>example.exe</exit-launch-path>
 	</behaviour-config>
 </updater-config>

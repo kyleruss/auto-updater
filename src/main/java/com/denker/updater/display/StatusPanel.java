@@ -12,7 +12,6 @@ import com.denker.updater.io.UpdateEventListener;
 import com.denker.updater.io.UpdateException;
 import com.denker.updater.io.UpdateIterator;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -28,10 +27,13 @@ import javax.swing.JPanel;
 
 public class StatusPanel extends JPanel
 {
-    public final int SERVICING_STATUS   =   0;
-    public final int INFO_STATUS        =   1;
-    public final int SUCCESS_STATUS     =   2;
-    public final int ERROR_STATUS       =   3;
+    public final int SERVICING_STATUS       =   0;
+    public final int INFO_STATUS            =   1;
+    public final int SUCCESS_STATUS         =   2;
+    public final int ERROR_STATUS           =   3;
+    public final int NO_UPDATES_STATUS      =   100;
+    public final int SUCCESS_UPDATE_STATUS  =   200;
+    public final int FAIL_UPDATE_STATUS     =   300;
     
     private BufferedImage panelImage;
     private final JLabel statusIconLabel;
@@ -72,7 +74,11 @@ public class StatusPanel extends JPanel
                 getNextUpdate();
             }
             
-            else setStatus("No updates found", INFO_STATUS);
+            else 
+            {
+                setStatus("No updates found", INFO_STATUS);
+                launchClosingApplication(NO_UPDATES_STATUS);
+            }
         }
         
         catch(UpdateException e)
@@ -153,6 +159,32 @@ public class StatusPanel extends JPanel
         }
     }
     
+    public void launchClosingApplication(int statusType)
+    {
+        FTPConfig conf      =   FTPConfig.getInstance();
+        boolean exitLaunch  =   conf.isEnableExitLaunch();
+        
+        if(exitLaunch)
+        {
+            String launchMessage    =   "Launching application";
+            setStatus(launchMessage, SERVICING_STATUS);
+
+            try
+            {
+                String appPath      =   conf.getExitLaunchPath();
+                String argName      =   conf.getStatusArgName();
+                String argValue     =   "" + statusType;
+                
+                new ProcessBuilder(appPath, argName, argValue).start();
+            }
+
+            catch(Exception e)
+            {
+                setStatus("Failed to launch application", ERROR_STATUS);
+            }
+        }
+    }
+    
     @Override
     public void paintComponent(Graphics g)
     {
@@ -194,25 +226,7 @@ public class StatusPanel extends JPanel
                 String message      =   "Updating complete";
                 setStatus(message, SUCCESS_STATUS);
                 
-                FTPConfig conf      =   FTPConfig.getInstance();
-                boolean exitLaunch  =   conf.isEnableExitLaunch();
-                
-                if(exitLaunch)
-                {
-                    String launchMessage    =   "Launching application";
-                    setStatus(launchMessage, SERVICING_STATUS);
-                    
-                    try
-                    {
-                        String appPath          =   FTPConfig.getInstance().getExitLaunchPath();
-                        Desktop.getDesktop().open(new File(appPath));
-                    }
-                    
-                    catch(IOException e)
-                    {
-                        setStatus("Failed to launch application", ERROR_STATUS);
-                    }
-                }
+                launchClosingApplication(SUCCESS_UPDATE_STATUS);
             }
         }
 

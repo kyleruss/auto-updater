@@ -37,6 +37,7 @@ public class FTPConfig
     private int buildNameType;
     private boolean enableExitLaunch;
     private String exitLaunchPath;
+    private String statusArgName;
 
     private FTPConfig()
     {
@@ -71,7 +72,8 @@ public class FTPConfig
             this.enableLog              =   configDoc.getElementsByTagName("enable-log").item(0).getTextContent().equalsIgnoreCase("true");
             this.buildNameType          =   Integer.parseInt(configDoc.getElementsByTagName("build-name-type").item(0).getTextContent());
             this.enableExitLaunch       =   configDoc.getElementsByTagName("enable-exit-launch").item(0).getTextContent().equalsIgnoreCase("true");
-            exitLaunchPath              =   configDoc.getElementsByTagName("exit-launch-path").item(0).getTextContent();
+            this.exitLaunchPath         =   configDoc.getElementsByTagName("exit-launch-path").item(0).getTextContent();
+            this.statusArgName          =   configDoc.getElementsByTagName("status-arg-name").item(0).getTextContent();
         }
 
         catch(Exception e)
@@ -179,5 +181,10 @@ public class FTPConfig
     public String getExitLaunchPath()
     {
         return exitLaunchPath;
+    }
+    
+    public String getStatusArgName()
+    {
+        return statusArgName;
     }
 }
