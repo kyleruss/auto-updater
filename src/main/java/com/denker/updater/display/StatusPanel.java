@@ -12,6 +12,7 @@ import com.denker.updater.io.UpdateEventListener;
 import com.denker.updater.io.UpdateException;
 import com.denker.updater.io.UpdateIterator;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -200,6 +201,17 @@ public class StatusPanel extends JPanel
                 {
                     String launchMessage    =   "Launching application";
                     setStatus(launchMessage, SERVICING_STATUS);
+                    
+                    try
+                    {
+                        String appPath          =   FTPConfig.getInstance().getExitLaunchPath();
+                        Desktop.getDesktop().open(new File(appPath));
+                    }
+                    
+                    catch(IOException e)
+                    {
+                        setStatus("Failed to launch application", ERROR_STATUS);
+                    }
                 }
             }
         }
