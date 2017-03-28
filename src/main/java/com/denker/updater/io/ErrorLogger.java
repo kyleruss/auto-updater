@@ -23,7 +23,7 @@ public class ErrorLogger
     
     static
     {
-        final String LOG_NAME   =   FTPConfig.getInstance().getLogName();
+        final String LOG_NAME   =   Config.getInstance().getLogName();
         logFile                 =   formatLogName(LOG_NAME);
     }
     
@@ -68,7 +68,7 @@ public class ErrorLogger
     
     public static Handler getHandler(String logName) throws IOException, SecurityException
     {
-        FTPConfig conf  =   FTPConfig.getInstance();
+        Config conf  =   Config.getInstance();
         
         Handler fh =  new FileHandler
         (
@@ -87,7 +87,7 @@ public class ErrorLogger
     //Template: /FOLDER/logname_dd-mm-yyy
     public static String formatLogName(String file)
     {
-        FTPConfig conf                  =   FTPConfig.getInstance();
+        Config conf                  =   Config.getInstance();
         final char delimiter            =   '_';
         final String ext                =   ".log";
         final String folder             =   conf.getLogDir();

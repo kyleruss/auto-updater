@@ -7,7 +7,7 @@
 package com.denker.updater.display;
 
 import com.denker.updater.io.AppVersion;
-import com.denker.updater.io.FTPConfig;
+import com.denker.updater.io.Config;
 import com.denker.updater.io.UpdateEventListener;
 import com.denker.updater.io.UpdateException;
 import com.denker.updater.io.UpdateIterator;
@@ -161,7 +161,7 @@ public class StatusPanel extends JPanel
     
     public void launchClosingApplication(int statusType)
     {
-        FTPConfig conf      =   FTPConfig.getInstance();
+        Config conf      =   Config.getInstance();
         boolean exitLaunch  =   conf.isEnableExitLaunch();
         
         if(exitLaunch)

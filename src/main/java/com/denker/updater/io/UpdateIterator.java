@@ -57,7 +57,7 @@ public class UpdateIterator
         {
             try
             {
-                String path     =   FTPConfig.getInstance().getVersionPath();
+                String path     =   Config.getInstance().getVersionPath();
                 File file       =   new File(path);
                 clientVersion   =   AppVersion.getVersionFromFile(new FileInputStream(file));
             }
@@ -75,7 +75,7 @@ public class UpdateIterator
         {
             try
             {
-                String patchDir         =   FTPConfig.getInstance().getServerPatchDirectory();
+                String patchDir         =   Config.getInstance().getServerPatchDirectory();
                 FTPFile[] buildFiles    =   client.listFiles(patchDir);
                 buildList               =   new ArrayList<>();
                 

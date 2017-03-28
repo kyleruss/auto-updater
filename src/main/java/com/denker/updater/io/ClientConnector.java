@@ -20,7 +20,7 @@ public class ClientConnector
 
     public void connect() throws UpdateException
     {
-        FTPConfig config    =   FTPConfig.getInstance();
+        Config config    =   Config.getInstance();
         client              =   new FTPClient();
         
         try

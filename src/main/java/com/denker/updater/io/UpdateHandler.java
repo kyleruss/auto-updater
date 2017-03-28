@@ -33,8 +33,8 @@ public class UpdateHandler
         {
             updateEventListener.onDownloadPatch(stateVersion);
             client.setFileType(FTPClient.BINARY_FILE_TYPE);
-            final String PATCH_DIR          =   FTPConfig.getInstance().getClientPatchDirectory();
-            final String SERVER_DIR         =   FTPConfig.getInstance().getServerPatchDirectory();
+            final String PATCH_DIR          =   Config.getInstance().getClientPatchDirectory();
+            final String SERVER_DIR         =   Config.getInstance().getServerPatchDirectory();
             File output                     =   new File(PATCH_DIR + "/" + statePath);
             
             try (FileOutputStream outputStream = new FileOutputStream(output.getAbsolutePath())) 
@@ -57,9 +57,9 @@ public class UpdateHandler
        try
        {
            updateEventListener.onUnpackPatch(stateVersion);
-           final String PATCH_DIR   =   FTPConfig.getInstance().getClientPatchDirectory();
+           final String PATCH_DIR   =   Config.getInstance().getClientPatchDirectory();
            final String PATCH_PATH  =   PATCH_DIR + statePath;
-           final String OUT_DIR     =   FTPConfig.getInstance().getOutputDirectory();
+           final String OUT_DIR     =   Config.getInstance().getOutputDirectory();
            String absPatchPath      =   new File(PATCH_PATH).getAbsolutePath();
            
            ZipFile zFile            =   new ZipFile(absPatchPath);
@@ -76,7 +76,7 @@ public class UpdateHandler
    private void removePatchFile() throws UpdateException
    {
         updateEventListener.onPatchCleanUp(stateVersion);
-        final String PATCH_DIR   =   FTPConfig.getInstance().getClientPatchDirectory();
+        final String PATCH_DIR   =   Config.getInstance().getClientPatchDirectory();
 
         try
         {

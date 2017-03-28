@@ -14,12 +14,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
-public class FTPConfig
+public class Config
 {
     public static final String DATA_DIR         =   "data";
     public static final String CONFIG_DIR       =   "data/conf/";
     public static final String CONFIG_PATH      =   CONFIG_DIR + "config.xml";
-    private static FTPConfig instance;
+    private static Config instance;
     private String host;
     private int port;
     private String user;
@@ -41,7 +41,7 @@ public class FTPConfig
     private String statusArgName;
     private boolean forceLaunch;
 
-    private FTPConfig()
+    private Config()
     {
         initConfig();
     }
@@ -101,9 +101,9 @@ public class FTPConfig
         return Integer.parseInt(doc.getElementsByTagName(name).item(0).getTextContent());
     }
 
-    public static FTPConfig getInstance()
+    public static Config getInstance()
     {
-        if(instance == null) instance = new FTPConfig();
+        if(instance == null) instance = new Config();
         return instance;
     }
 

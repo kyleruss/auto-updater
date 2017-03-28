@@ -53,7 +53,7 @@ public class AppVersion implements Comparable<AppVersion>
     @Override
     public int compareTo(AppVersion other)
     {
-        int buildNameType   =   FTPConfig.getInstance().getBuildNameType();
+        int buildNameType   =   Config.getInstance().getBuildNameType();
         
         if(buildNameType == 0)
         {
@@ -117,7 +117,7 @@ public class AppVersion implements Comparable<AppVersion>
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             
             DOMSource src                   =   new DOMSource(doc);
-            String versionPath              =   FTPConfig.getInstance().getVersionPath();
+            String versionPath              =   Config.getInstance().getVersionPath();
             StreamResult res                =   new StreamResult(new File(versionPath));
             transformer.transform(src, res);
         }
