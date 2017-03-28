@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class FTPConfig
 {
+    public static final String DATA_DIR         =   "data";
     public static final String CONFIG_DIR       =   "data/conf/";
     public static final String CONFIG_PATH      =   CONFIG_DIR + "config.xml";
     private static FTPConfig instance;
@@ -38,6 +39,7 @@ public class FTPConfig
     private boolean enableExitLaunch;
     private String exitLaunchPath;
     private String statusArgName;
+    private boolean forceLaunch;
 
     private FTPConfig()
     {
@@ -54,32 +56,49 @@ public class FTPConfig
     {
         try
         {
-            Document configDoc          =   getConfigDocument();
-            this.host                   =   configDoc.getElementsByTagName("hostname").item(0).getTextContent();
-            this.port                   =   Integer.parseInt(configDoc.getElementsByTagName("port").item(0).getTextContent());
-            this.user                   =   configDoc.getElementsByTagName("username").item(0).getTextContent();
-            this.password               =   configDoc.getElementsByTagName("password").item(0).getTextContent();
-            this.workDirectory          =   configDoc.getElementsByTagName("working-dir").item(0).getTextContent();
-            this.versionPath            =   configDoc.getElementsByTagName("version-path").item(0).getTextContent();
-            this.outputDirectory        =   configDoc.getElementsByTagName("output-dir").item(0).getTextContent();
-            this.clientPatchDirectory   =   configDoc.getElementsByTagName("client-patch-dir").item(0).getTextContent();
-            this.serverPatchDirectory   =   configDoc.getElementsByTagName("server-patch-dir").item(0).getTextContent();
-            this.keepPatches            =   configDoc.getElementsByTagName("keep-patches").item(0).getTextContent().equalsIgnoreCase("true");
-            this.logName                =   configDoc.getElementsByTagName("log-name").item(0).getTextContent();
-            this.logDir                 =   configDoc.getElementsByTagName("log-dir").item(0).getTextContent();
-            this.maxLogSize             =   Integer.parseInt(configDoc.getElementsByTagName("max-log-size").item(0).getTextContent());
-            this.maxLogCount            =   Integer.parseInt(configDoc.getElementsByTagName("max-log-count").item(0).getTextContent());
-            this.enableLog              =   configDoc.getElementsByTagName("enable-log").item(0).getTextContent().equalsIgnoreCase("true");
-            this.buildNameType          =   Integer.parseInt(configDoc.getElementsByTagName("build-name-type").item(0).getTextContent());
-            this.enableExitLaunch       =   configDoc.getElementsByTagName("enable-exit-launch").item(0).getTextContent().equalsIgnoreCase("true");
-            this.exitLaunchPath         =   configDoc.getElementsByTagName("exit-launch-path").item(0).getTextContent();
-            this.statusArgName          =   configDoc.getElementsByTagName("status-arg-name").item(0).getTextContent();
+            Document doc                =   getConfigDocument();
+            this.host                   =   getStringConfig(doc, "hostname");
+            this.port                   =   getIntegerConfig(doc, "port");
+            this.user                   =   getStringConfig(doc, "username");
+            this.password               =   getStringConfig(doc, "password");
+            this.workDirectory          =   getStringConfig(doc, "working-dir");
+            this.versionPath            =   getStringConfig(doc, "version-path");
+            this.outputDirectory        =   getStringConfig(doc, "output-dir");
+            this.clientPatchDirectory   =   getStringConfig(doc, "client-patch-dir");
+            this.serverPatchDirectory   =   getStringConfig(doc, "server-patch-dir");
+            this.keepPatches            =   getBooleanConfig(doc, "keep-patches");
+            this.logName                =   getStringConfig(doc, "log-name");
+            this.logDir                 =   getStringConfig(doc, "log-dir");
+            this.maxLogSize             =   getIntegerConfig(doc, "max-log-size");
+            this.maxLogCount            =   getIntegerConfig(doc, "max-log-count");
+            this.enableLog              =   getBooleanConfig(doc, "enable-log");
+            this.buildNameType          =   getIntegerConfig(doc, "build-name-type");
+            this.enableExitLaunch       =   getBooleanConfig(doc, "enable-exit-launch");
+            this.exitLaunchPath         =   getStringConfig(doc, "exit-launch-path");
+            this.statusArgName          =   getStringConfig(doc, "status-arg-name");
+            this.forceLaunch            =   getBooleanConfig(doc, "force-launch");
         }
 
         catch(Exception e)
         {
             System.out.println("[Error] Unable to read updater config");
         }
+    }
+    
+    public boolean getBooleanConfig(Document doc, String name)
+    {
+        final String BOOL_NAME   =   "true";
+        return doc.getElementsByTagName(name).item(0).getTextContent().equalsIgnoreCase(BOOL_NAME);
+    }
+    
+    public String getStringConfig(Document doc, String name)
+    {
+        return doc.getElementsByTagName(name).item(0).getTextContent();
+    }
+    
+    public int getIntegerConfig(Document doc, String name)
+    {
+        return Integer.parseInt(doc.getElementsByTagName(name).item(0).getTextContent());
     }
 
     public static FTPConfig getInstance()
@@ -186,5 +205,10 @@ public class FTPConfig
     public String getStatusArgName()
     {
         return statusArgName;
+    }
+    
+    public boolean isForceLaunch()
+    {
+        return forceLaunch;
     }
 }

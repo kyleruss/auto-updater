@@ -84,7 +84,7 @@ public class StatusPanel extends JPanel
         catch(UpdateException e)
         {
             setStatus(e.getMessage(), ERROR_STATUS);
-        }
+        } 
     }
     
     public void getNextUpdate()
@@ -176,6 +176,7 @@ public class StatusPanel extends JPanel
                 String argValue     =   "" + statusType;
                 
                 new ProcessBuilder(appPath, argName, argValue).start();
+                System.exit(0);
             }
 
             catch(Exception e)

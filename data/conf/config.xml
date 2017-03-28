@@ -32,8 +32,9 @@
 	</interface-config>
 
 	<behaviour-config>
+		<force-launch>true</force-launch>
 		<enable-exit-launch>true</enable-exit-launch>
 		<status-arg-name>s</status-arg-name>
-		<exit-launch-path>example.exe</exit-launch-path>
+		<exit-launch-path>data/graphi.jar</exit-launch-path>
 	</behaviour-config>
 </updater-config>
