@@ -24,7 +24,6 @@ public class Config
     private int port;
     private String user;
     private String password;
-    private String workDirectory;
     private String versionPath;
     private String outputDirectory;
     private String clientPatchDirectory;
@@ -61,7 +60,6 @@ public class Config
             this.port                   =   getIntegerConfig(doc, "port");
             this.user                   =   getStringConfig(doc, "username");
             this.password               =   getStringConfig(doc, "password");
-            this.workDirectory          =   getStringConfig(doc, "working-dir");
             this.versionPath            =   getStringConfig(doc, "version-path");
             this.outputDirectory        =   getStringConfig(doc, "output-dir");
             this.clientPatchDirectory   =   getStringConfig(doc, "client-patch-dir");
@@ -125,16 +123,6 @@ public class Config
     public String getPassword()
     {
         return password;
-    }
-
-    public String getWorkDirectory()
-    {
-        return workDirectory;
-    }
-
-    public boolean isRootDirectory()
-    {
-        return workDirectory == null || workDirectory.equals("/");
     }
 
     public String getVersionPath()

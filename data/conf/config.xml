@@ -1,40 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- ==============================================
+	File: config.xml
+	Author: Kyle Russell
+	Repository: github.com/denkers/auto-updater
+================================================-->
 
 <updater-config>
-    <connection-config>
-        <hostname>127.0.0.1</hostname>
+
+	<!-- FTP settings -->
+	<connection-config>
+		<!-- FTP server address/IP -->
+		<hostname>127.0.0.1</hostname>
+
+		<!-- FTP server port (201 default) -->
 		<port>201</port>
+
+		<!-- FTP server user -->
 		<username>ftpguest</username>
+
+		<!-- FTP server users password -->
         <password>fgsmg2</password>
     </connection-config>
 
-    <patch-config>
-        <working-dir>/</working-dir>
+	<!-- Patch directory settings -->
+	<patch-config>
+		<!--Directory to place temp downloaded patches -->
 		<client-patch-dir>data/patches/</client-patch-dir>
+
+		<!-- Directory in FTP server where patches are located -->
 		<server-patch-dir>patches/</server-patch-dir>
+
+		<!-- Location of client version file -->
 		<version-path>data/conf/version.xml</version-path>
+
+		<!-- Patch extension type
+			 0: Integer/build type
+			 1: String type (evaluated alphabetically)
+		-->
 		<build-name-type>0</build-name-type>
+
+		<!-- Directory to unpack patch contents -->
 		<output-dir>.</output-dir>
+
+		<!-- Enable/disable removal of temporary patch files -->
 		<keep-patches>false</keep-patches>
 	</patch-config>
 
+	<!-- Logging settings -->
 	<log-config>
+
+		<!-- Enable/disable logging -->
 		<enable-log>false</enable-log>
+
+		<!-- Name of the default log name -->
 		<log-name>ErrorLog</log-name>
+
+		<!-- Directory to store logs -->
 		<log-dir>data/logs/</log-dir>
+
+		<!-- Maximum log storage size (KB) -->
 		<max-log-size>10000</max-log-size>
+
+		<!-- Number of logs with same name -->
 		<max-log-count>1</max-log-count>
 	</log-config>
 
+	<!-- UI settings -->
 	<interface-config>
+		<!-- Enable/disable the GUI -->
 		<enable-gui>true</enable-gui>
+
+		<!-- Path to the splash image -->
 		<splash-path>data/images/splash.png</splash-path>
 	</interface-config>
 
+	<!-- Update completion/exit behaviour settings -->
 	<behaviour-config>
+
+		<!-- Enable/disable forced launch of application
+			 If true, application will attempt to launch even if update failed
+		-->
 		<force-launch>true</force-launch>
+
+		<!-- Enable/disable launching of a application after update completion -->
 		<enable-exit-launch>true</enable-exit-launch>
+
+		<!-- Status paramater name to pass to executing application -->
 		<status-arg-name>s</status-arg-name>
+
+		<!-- Path to executing application -->
 		<exit-launch-path>data/graphi.jar</exit-launch-path>
 	</behaviour-config>
 </updater-config>
