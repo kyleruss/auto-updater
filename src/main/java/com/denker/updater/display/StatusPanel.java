@@ -55,7 +55,6 @@ public class StatusPanel extends JPanel
         statusIconLabel.setIcon(new ImageIcon("spinner.gif"));
         statusIconLabel.setForeground(Color.WHITE);
         statusIconLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
-        setStatus("Checking for updates", SERVICING_STATUS);
         
         add(Box.createRigidArea(new Dimension(449, 5)));
         add(statusIconLabel);
@@ -85,7 +84,7 @@ public class StatusPanel extends JPanel
             }
         }
         
-        catch(UpdateException e)
+        catch(Exception e)
         {
             setStatus(e.getMessage(), ERROR_STATUS);
         } 
