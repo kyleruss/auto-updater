@@ -39,7 +39,7 @@ public class Config
     private String exitLaunchPath;
     private String statusArgName;
     private boolean forceLaunch;
-    private String packedVersionPath;
+    private boolean useCustomVersion;
 
     private Config()
     {
@@ -76,7 +76,7 @@ public class Config
             this.exitLaunchPath         =   getStringConfig(doc, "exit-launch-path");
             this.statusArgName          =   getStringConfig(doc, "status-arg-name");
             this.forceLaunch            =   getBooleanConfig(doc, "force-launch");
-            this.packedVersionPath      =   getStringConfig(doc, "packed-version-path");
+            this.useCustomVersion       =   getBooleanConfig(doc, "use-custom-version");
         }
 
         catch(Exception e)
@@ -202,8 +202,8 @@ public class Config
         return forceLaunch;
     }
     
-    public String getPackedVersionPath()
+    public boolean useCustomVersion()
     {
-        return packedVersionPath;
+        return useCustomVersion;
     }
 }

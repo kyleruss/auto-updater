@@ -33,9 +33,11 @@
 		<!-- Location of client version file -->
 		<version-path>data/conf/version.xml</version-path>
 
-		<!-- Location of version file in packed patches -->
-		<packed-version-path>version.xml</version-path>
-
+		<!-- 
+			 True: You will provide your own version.xml in each patch
+			 False: default version.xml is updated based on buld-id of patch
+		-->
+		<use-custom-version>false</use-custom-version>
 		<!-- Patch extension type
 			 0: Integer/build type
 			 1: String type (evaluated alphabetically)

@@ -89,6 +89,12 @@ public class UpdateHandler
             throw new UpdateException(ErrorCode.REMOVE_PATCH_ERR, e);
         }
    }
+   
+   private void updateVersion() throws UpdateException
+   {
+       if(!Config.getInstance().useCustomVersion())
+            stateVersion.saveVersionToClient();
+   }
 
     
     private void initState(AppVersion stateVersion)
@@ -103,7 +109,7 @@ public class UpdateHandler
         downloadPatchZip();
         unpackPatch();
         removePatchFile();
-        stateVersion.saveVersionToClient(); 
+        updateVersion();
         updateEventListener.onUpdateComplete(stateVersion);
     }
     
