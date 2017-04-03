@@ -10,11 +10,13 @@ import com.denker.updater.io.AppVersion;
 import com.denker.updater.io.Config;
 import com.denker.updater.io.UpdateEventListener;
 import com.denker.updater.io.UpdateException;
+import com.denker.updater.io.UpdateHandler;
 import com.denker.updater.io.UpdateIterator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +26,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 public class StatusPanel extends JPanel
 {
@@ -176,12 +180,13 @@ public class StatusPanel extends JPanel
                 String argValue     =   "" + statusType;
                 
                 new ProcessBuilder(appPath, argName, argValue).start();
-                System.exit(0);
+                UpdateHandler.closeUpdater();
             }
 
             catch(Exception e)
             {
                 setStatus("Failed to launch application", ERROR_STATUS);
+                UpdateHandler.closeUpdater();
             }
         }
     }

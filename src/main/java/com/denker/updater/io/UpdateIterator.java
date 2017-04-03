@@ -6,11 +6,14 @@
 
 package com.denker.updater.io;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -142,7 +145,7 @@ public class UpdateIterator
         
         catch(Exception e)
         {
-            e.printStackTrace();
+            UpdateHandler.closeUpdater();
         }
     }
 }

@@ -7,12 +7,15 @@
 package com.denker.updater.io;
 
 import com.denker.updater.io.UpdateException.ErrorCode;
+import java.awt.event.ActionEvent;
 import org.apache.commons.net.ftp.FTPClient;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import net.lingala.zip4j.core.ZipFile;
 
 public class UpdateHandler
@@ -96,6 +99,19 @@ public class UpdateHandler
             stateVersion.saveVersionToClient();
    }
 
+   public static void closeUpdater()
+   {
+       SwingUtilities.invokeLater(()->
+        {
+            Timer timer =   new Timer(1000, (ActionEvent ev) -> 
+            {
+                System.exit(0);
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+        });
+   }
     
     private void initState(AppVersion stateVersion)
     {
