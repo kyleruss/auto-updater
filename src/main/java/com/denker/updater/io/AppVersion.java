@@ -28,16 +28,23 @@ public class AppVersion implements Comparable<AppVersion>
 {
     private final String buildID;
     private final Date buildDate;
+    private final String buildVersion;
     
     public AppVersion(String buildID)
     {
-        this(buildID, new Date());
+        this(buildID, new Date(), "1.0");
     }
     
-    public AppVersion(String buildID, Date buildDate)
+    public AppVersion(String buildID, String buildVersion)
     {
-        this.buildID    =   buildID;
-        this.buildDate  =   buildDate;
+        this(buildID, new Date(), buildVersion);
+    }
+    
+    public AppVersion(String buildID, Date buildDate, String buildVersion)
+    {
+        this.buildID        =   buildID;
+        this.buildDate      =   buildDate;
+        this.buildVersion   =   buildVersion;
     }
 
     public String getBuildID()
@@ -76,13 +83,14 @@ public class AppVersion implements Comparable<AppVersion>
         try
         {
             Document versDocument       =   DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
-            String fileBuildID          =   versDocument.getElementsByTagName("build-id").item(0).getTextContent();
-            String fileBuildDate        =   versDocument.getElementsByTagName("build-date").item(0).getTextContent();
+            String fileBuildID          =   Config.getStringConfig(versDocument, "build-id");
+            String fileBuildDate        =   Config.getStringConfig(versDocument, "build-date");
+            String fileVersion          =   Config.getStringConfig(versDocument, "build-version");
 
             SimpleDateFormat dateFmt    =   new SimpleDateFormat("dd-MM-yyy");
             Date buildDateFmt           =   dateFmt.parse(fileBuildDate);
 
-            return new AppVersion(fileBuildID, buildDateFmt);
+            return new AppVersion(fileBuildID, buildDateFmt, fileVersion);
         }
 
         catch(Exception e)
@@ -105,6 +113,11 @@ public class AppVersion implements Comparable<AppVersion>
             Element buildIDElement          =   doc.createElement("build-id");
             buildIDElement.appendChild(doc.createTextNode(buildID));
             rootElement.appendChild(buildIDElement);
+            
+            Element buildVersElement        =   doc.createElement("build-version");
+            buildVersElement.appendChild(doc.createTextNode(buildVersion));
+            rootElement.appendChild(buildVersElement);
+            
             
             SimpleDateFormat dateFmt        =   new SimpleDateFormat("dd-MM-yyy");
             String formattedDate            =   dateFmt.format(buildDate);

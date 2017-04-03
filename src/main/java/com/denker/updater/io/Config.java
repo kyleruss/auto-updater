@@ -83,18 +83,18 @@ public class Config
         }
     }
     
-    public boolean getBooleanConfig(Document doc, String name)
+    public static boolean getBooleanConfig(Document doc, String name)
     {
         final String BOOL_NAME   =   "true";
         return doc.getElementsByTagName(name).item(0).getTextContent().equalsIgnoreCase(BOOL_NAME);
     }
     
-    public String getStringConfig(Document doc, String name)
+    public static String getStringConfig(Document doc, String name)
     {
         return doc.getElementsByTagName(name).item(0).getTextContent();
     }
     
-    public int getIntegerConfig(Document doc, String name)
+    public static int getIntegerConfig(Document doc, String name)
     {
         return Integer.parseInt(doc.getElementsByTagName(name).item(0).getTextContent());
     }
