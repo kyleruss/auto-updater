@@ -4,6 +4,16 @@
 
 <img src="preview/AppPreview.png" />
 
+## How it works
+- Auto-Updater first connects to the patching FTP server and compares
+the local client version with the server version and begins to update if the client is out of date
+- The FTP server maintains all the patches in compressed zips whereby the patch names comply to a  
+patch naming convention i.e. build numbers
+- If the client is out of date, Auto-Updater proceeds to download and unpack the patches into a  
+specified directory on the client 
+- After each update, Auto-Updater modifies the client version to the new patched version  
+- Auto-Updater continues downloading and unpacking patches until the client is up to date
+
 ## Installation
 - [Download](https://github.com/kyleruss/auto-updater/releases/latest) the latest release
 - Unzip the contents into the root directory of the client application you wish to keep updated
