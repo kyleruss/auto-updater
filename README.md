@@ -1,8 +1,11 @@
-<img src="preview/AppIcon.png" align="left" />
-
 # Auto-Updater 
 
 <img src="preview/AppPreview.png" />
+
+## About 
+Auto-Updater is a software updating service that allows users to easily manage and push updates to their clients  
+Updates are simply maintained on an FTP server and then automatically pushed to clients  
+Auto-Updater is highly customizable and offers a wide range of features to assist with update management
 
 ## How it works
 - Auto-Updater first connects to the patching FTP server and compares
