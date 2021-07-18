@@ -2,7 +2,7 @@
 <!-- ==============================================
 	File: config.xml
 	Author: Kyle Russell
-	Repository: github.com/denkers/auto-updater
+	Repository: github.com/kyleruss/auto-updater
 ================================================-->
 
 <updater-config>
@@ -16,10 +16,10 @@
 		<port>201</port>
 
 		<!-- FTP server user -->
-		<username>ftpguest</username>
+		<username>YOUR_FTP_USERNAME</username>
 
 		<!-- FTP server users password -->
-        <password>fgsmg2</password>
+        <password>YOUR_FTP_PASSWORD</password>
     </connection-config>
 
 	<!-- Patch directory settings -->
@@ -88,12 +88,12 @@
 		<force-launch>true</force-launch>
 
 		<!-- Enable/disable launching of a application after update completion -->
-		<enable-exit-launch>true</enable-exit-launch>
+		<enable-exit-launch>false</enable-exit-launch>
 
 		<!-- Status paramater name to pass to executing application -->
-		<status-arg-name>s</status-arg-name>
+		<status-arg-name></status-arg-name>
 
 		<!-- Path to executing application -->
-		<exit-launch-path>data/graphi.jar</exit-launch-path>
+		<exit-launch-path>YOUR_EXECUTABLE_PATH</exit-launch-path>
 	</behaviour-config>
 </updater-config>
